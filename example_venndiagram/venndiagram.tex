@@ -1,0 +1,93 @@
+
+
+\documentclass[a4paper]{article}
+
+\usepackage{venndiagram}
+\usepackage{parskip}
+\usepackage[left=1in,right=1in,showframe]{geometry}
+
+\begin{document}
+
+\section{Venn diagrams}
+Venn diagrams can be used for describing logical functions. It consists of a
+square or a rectangle which is called the \textsl{universe}. In the universe
+we draw circles that represent the variables. Within a circle we say that the
+variable is 1. Outside the circle a variable is said to be~0. The circles may
+overlap; in that area it is said that both variables are 1. The universe
+contains all possible sets and functions that can be made with the variables
+and has the constant value of~1. To indicate the display of a function, we
+shade a part of the Venn diagram that is needed. Figure~\ref{fig:vdaorb} shows
+the Venn diagram representing the logic function $A+B$.
+
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram2sets}[radius=1.0cm]
+\fillA \fillB
+\end{venndiagram2sets}
+\caption{Venn diagram for $A+B$.}
+\label{fig:vdaorb}
+\end{figure}
+
+Similar, Figure~\ref{fig:vdaandb} shows the logic function $A\cdot B$.
+One can easily see that $A\cdot B$ is contained in $A+B$.
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram2sets}[radius=1.0cm]
+\fillACapB
+\end{venndiagram2sets}
+\caption{Venn diagram for $A\cdot B$.}
+\label{fig:vdaandb}
+\end{figure}
+
+Figure~\ref{fig;vdaorborc} shows the Venn diagram for
+the logic functions $A+B+C$.
+
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram3sets}[radius=1.0cm]
+\fillA \fillB \fillC
+\end{venndiagram3sets}
+\caption{Venn diagram for $A+B+C$.}
+\label{fig;vdaorborc}
+\end{figure}
+
+\newpage
+Figure~\ref{fig:vddemorgan} shows the proof of one of DeMorgan's theorems.
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram2sets}[radius=1.0cm]
+\fillNotAorB
+\end{venndiagram2sets}
+\caption{Venn diagram for $\overline{A+B}$ which is equal to $\overline{A}\cdot\overline{B}$.}
+\label{fig:vddemorgan}
+\end{figure}
+
+Figure~\ref{fig:vdintersectionthree} shows the intersection of three variables.
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram3sets}[radius=1.0cm,labelA=$a$,labelB=$b$,labelC=$c$]
+\fillACapBCapC
+\end{venndiagram3sets}
+\caption{Venn diagram for $a\cdot b\cdot c$.}
+\label{fig:vdintersectionthree}
+\end{figure}
+
+Figure~\ref{fig:vdunion} shows the proof of one of the absorption laws.
+\begin{figure}[!ht]
+\centering
+\begin{venndiagram2sets}[radius=1.0cm,labelA=$l$,labelB=$b$]
+\fillA
+\end{venndiagram2sets}\hspace*{0.5cm}%
+\begin{venndiagram2sets}[radius=1.0cm,labelA=$l$,labelB=$b$]
+\fillBNotA
+\end{venndiagram2sets}\hspace*{0.5cm}%
+\begin{venndiagram2sets}[radius=1.0cm,labelA=$l$,labelB=$b$]
+\fillA\fillB
+\end{venndiagram2sets}
+\caption{Union of the logic function $l\vee(\neg l \wedge b)$.}
+\label{fig:vdunion}
+\end{figure}
+
+
+
+\end{document}

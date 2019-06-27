@@ -1,0 +1,150 @@
+\documentclass[12pt,fleqn]{article}
+
+\usepackage[dutch]{babel}
+\usepackage[a4paper,left=1in,right=1in,top=1in,bottom=1.5in]{geometry}
+\usepackage{parskip}
+\usepackage{mathtools}
+\setlength{\mathindent}{1em}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+
+%%
+%% based on https://tex.stackexchange.com/questions/476045/euler-and-minus-sign
+%%
+%% Imaginary unit, e, and Euler
+\newcommand\imaginaryunit{j}                   % the imaginary unit, i for mathematician and theoretical physicist,
+                                               % j for the rest of the world.
+\newcommand\imunit{\mathrm{\imaginaryunit}}    % ... in upright math
+\newcommand\ce{\mathrm{e}}                     % the constant e, upright of course
+
+\newcommand{\epowre}[1]{\ce^{#1}}              % e to the power of real
+\makeatletter
+\newcommand{\fiximunit@@}{\if\imaginaryunit j\,\fi}
+\newcommand{\epowim}[1]{\ce^{\epowim@#1}}      % e to the power of imaginary
+\newcommand{\epowim@}{\@ifnextchar-{\epowim@@}{\epowim@@{\fiximunit@@}}}
+\newcommand{\epowim@@}[1]{#1\imunit}
+\newcommand{\epowim@@@}{\@ifnextchar-{\epowim@@@@}{+\epowim@@@@{}}}
+\newcommand{\epowim@@@@}[1]{#1\imunit}
+\newcommand{\epowcom}[2]{\ce^{#1\epowim@@@#2}} % e to the power of complex
+\newcommand{\cis}[1]{\cis@#1}                  % cos + imaginary sin
+\newcommand{\cis@}{\@ifnextchar-{\cis@@@}{\cis@@}}
+\newcommand{\cis@@}[1]{\cos#1 + \imunit\sin#1}
+\newcommand{\cis@@@}[2]{\cos#2 - \imunit\sin#2}
+\makeatother
+%\renewcommand{\Re}{\mathrm{Re}}  % Redefine \Re
+%\renewcommand{\Im}{\mathrm{Im}}  % Redefine \Im
+
+
+
+
+\begin{document}
+\section*{Macro's voor gebruik met complexe getallen met \imaginaryunit}
+De imaginaire eenheid is: \imaginaryunit.
+
+Zet de imaginaire eenheid met: \verb|\newcommand{\imaginaryunit}{j}| (default)
+
+In math-mode: $\imunit$. Gebruik in math-mode: \verb|\imunit|
+
+De constante e in math-mode $\ce$. Gebruik in math-mode: \verb|\ce|
+
+Reële e-macht: $\epowre{-2} = 0,13533528\ldots$ Gebruik in math-mode: \verb|\epowre{arg}|
+
+Imaginaire e-macht: $\epowim{\alpha}$. Gebruik in math-mode: \verb|\epowim{arg}|
+
+Goniometrisch complex: $\cis{\alpha}$. Gebruik in math-mode: \verb|\cis{arg}|
+
+Goniometrisch complex: $\cis{-\alpha}$. Gebruik in math-mode: \verb|\cis{-arg}|
+
+Goniometrisch complex: $\cis{{\omega t}}$. Gebruik in math-mode: \verb|\cis{{arg}}|
+
+Goniometrisch complex: $\cis{-{\omega t}}$. Gebruik in math-mode: \verb|\cis{-{arg}}|
+
+Goniometrisch complex: $\cis{{-\omega t}}$. Gebruik in math-mode: \verb|\cis{{-arg}}|
+
+Complexe e-macht: $\epowcom{\sigma}{\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{\omega t}|
+
+Complexe e-macht: $\epowcom{\sigma}{-\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
+
+Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
+
+Nu samen: $\epowcom{\sigma}{-\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
+
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=2.5,font=\footnotesize] % scale is radius in cm
+\def\uangle{40}
+\draw[thick] (0,0) circle (1cm);
+\draw[-latex,thick] (0,-1.1) -- (0,1.1) node[above] {$\Im$};
+\draw[-latex,thick] (-1.1,0) -- (1.1,0) node[right] {$\Re$};
+\draw[-latex,thick] (0,0) --(\uangle:1) node[midway,above] {1};
+\draw[dashed] (\uangle:1) -| (0,0);
+\draw[dashed] (\uangle:1) |- (0,0);
+\draw[decorate,decoration={brace,amplitude=4pt,mirror,raise=2pt}] (0,0) -- node[below,yshift=-2mm]{$\cos\alpha$} ({cos(\uangle)},0);
+\draw[decorate,decoration={brace,amplitude=4pt,raise=2pt}] (0,0) -- node[left,xshift=-2mm]{$\sin\alpha$} (0,{sin(\uangle)});
+\draw[-latex] (0.3,0) arc (0:\uangle:0.3);
+\node at (\uangle/2:0.4) {$\alpha$};
+\node at (1,0) [xshift=50pt,right,font=\normalsize] {$\epowim{\alpha} = \cis{\alpha}$};
+\end{tikzpicture}
+\caption{Complexe eenheidscirkel.}
+\end{figure}
+
+\newpage
+\renewcommand{\imaginaryunit}{i}
+\section*{Macro's voor gebruik met complexe getallen met \imaginaryunit}
+De imaginaire eenheid is: \imaginaryunit.
+
+Zet de imaginaire eenheid met: \verb|\newcommand{\imaginaryunit}{i}|
+
+In math-mode: $\imunit$. Gebruik in math-mode: \verb|\imunit|
+
+De constante e in math-mode $\ce$. Gebruik in math-mode: \verb|\ce|
+
+Reële e-macht: $\epowre{-2} = 0,13533528\ldots$ Gebruik in math-mode: \verb|\epowre{arg}|
+
+Imaginaire e-macht: $\epowim{\alpha}$. Gebruik in math-mode: \verb|\epowim{arg}|
+
+Goniometrisch complex: $\cis{\alpha}$. Gebruik in math-mode: \verb|\cis{arg}|
+
+Goniometrisch complex: $\cis{-\alpha}$. Gebruik in math-mode: \verb|\cis{-arg}|
+
+Goniometrisch complex: $\cis{{\omega t}}$. Gebruik in math-mode: \verb|\cis{{arg}}|
+
+Goniometrisch complex: $\cis{-{\omega t}}$. Gebruik in math-mode: \verb|\cis{-{arg}}|
+
+Goniometrisch complex: $\cis{{-\omega t}}$. Gebruik in math-mode: \verb|\cis{{-arg}}|
+
+Complexe e-macht: $\epowcom{\sigma}{\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{\omega t}|
+
+Complexe e-macht: $\epowcom{\sigma}{-\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
+
+Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
+
+Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
+
+\renewcommand{\Re}{\mathrm{Re}}  % Redefine \Re
+\renewcommand{\Im}{\mathrm{Im}}  % Redefine \Im
+
+\begin{figure}[!h]
+\centering
+\begin{tikzpicture}[scale=2.5,font=\footnotesize] % scale is radius in cm
+\def\uangle{-40}
+\draw[thick] (0,0) circle (1cm);
+\draw[-latex,thick] (0,-1.1) -- (0,1.1) node[above] {$\Im$};
+\draw[-latex,thick] (-1.1,0) -- (1.1,0) node[right] {$\Re$};
+\draw[-latex,thick] (0,0) --(\uangle:1) node[midway,below] {1};
+\draw[dashed] (\uangle:1) -| (0,0);
+\draw[dashed] (\uangle:1) |- (0,0);
+\draw[decorate,decoration={brace,amplitude=4pt,raise=2pt}] (0,0) -- node[above,yshift=2mm]{$\cos\alpha$} ({cos(\uangle)},0);
+\draw[decorate,decoration={brace,amplitude=4pt,mirror,raise=2pt}] (0,0) -- node[left,xshift=-2mm]{$\sin\alpha$} (0,{sin(\uangle)});
+\draw[-latex] (0.3,0) arc (0:\uangle:0.3);
+\node at (\uangle/2:0.4) {$\alpha$};
+\node at (1,0) [xshift=50pt,right,font=\normalsize] {$\epowim{-\alpha} = \cis{-\alpha}$};
+\end{tikzpicture}
+\caption{Complexe eenheidscirkel.}
+\end{figure}
+
+\end{document}
+
