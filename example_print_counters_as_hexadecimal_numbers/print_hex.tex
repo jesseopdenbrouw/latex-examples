@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{parskip}
+
+%% \printhex[number of digits]{decimal value}
+%% number of digits between 1 and 8
+%% decimal value: TeX counter value
+%% \hexdiv = divider, power of 16
+%% \hexvar = number to be converted
+%% \hextmp = scratch calculation counter
+\newcount\hexdiv
+\newcount\hexvar
+\newcount\hextmp
+\newcommand{\printhex}[2][4]{%
+%\hexdiv=0\hexvar=0\hextmp=0
+\hextmp=#1%
+\ifnum#1>7
+\hextmp=#2
+\ifnum\hextmp<0\relax
+\advance\hextmp by 2147483647\advance\hexvar by 1
+\divide\hextmp by 268435456
+\advance\hextmp by 8
+\printhexdigit\hextmp\relax
+\else
+\divide\hextmp by 268435456
+\printhexdigit\hextmp\relax
+\fi
+\fi
+\hexvar=#2%
+\hexdiv=0\ifcase#1\relax \or 16\or 256\or 4096\or 65536\or 1048576\or 16777216\or 268435456\else 268435456\fi
+\ifnum\hexvar<0\relax\advance\hexvar by 2147483647\advance\hexvar by 1\fi
+\hextmp=\hexvar
+\divide\hextmp by \hexdiv%
+\multiply\hextmp by \hexdiv
+\advance\hexvar by -\hextmp
+\divide\hexdiv by 16%
+\loop
+	\hextmp=\hexvar
+	\divide\hextmp by \hexdiv
+	\printhexdigit\hextmp\relax
+	\multiply\hextmp by \hexdiv
+	\advance\hexvar by -\hextmp
+	\divide\hexdiv by 16
+	\ifnum\hexdiv>0
+\repeat
+}
+\newcommand{\printhexdigit}[1]{%
+	\ifcase#1\relax 0\or 1\or 2\or 3\or 4\or 5\or 6\or 7\or 8\or 9\or A\or B\or C\or D\or E\or F\else ***error***\fi
+}
+
+
+\begin{document}
+
+Print two's complement numbers as hexadecimal numbers:
+
+$0$ in 8-byte hex is: \printhex[8]{0}\newline
+
+$-1$ in 8-byte hex is: \printhex[8]{-1}\newline
+$-2$ in 8-byte hex is: \printhex[8]{-2}\newline
+$-3$ in 8-byte hex is: \printhex[8]{-3}\newline
+$-30000000$ in 8-byte hex is: \printhex[8]{-30000000}\newline
+
+$-300$ in 4-byte hex is: \printhex[4]{-300}\newline
+
+\end{document}
