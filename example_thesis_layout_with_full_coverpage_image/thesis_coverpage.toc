@@ -1,8 +1,0 @@
-\babel@toc {dutch}{}
-\contentsline {chapter}{Voorwoord}{i}{chapter*.1}% 
-\contentsline {chapter}{Samenvatting}{v}{chapter*.3}% 
-\contentsline {chapter}{\numberline {1}Inleiding}{1}{chapter.1}% 
-\contentsline {section}{\numberline {1.1}More Kant}{1}{section.1.1}% 
-\contentsline {chapter}{\numberline {2}Opdrachtsomschrijving}{5}{chapter.2}% 
-\contentsline {section}{\numberline {2.1}More Kant}{5}{section.2.1}% 
-\contentsline {chapter}{\numberline {3}Onderzoek}{7}{chapter.3}% 
