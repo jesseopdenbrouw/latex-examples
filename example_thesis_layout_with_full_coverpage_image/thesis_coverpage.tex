@@ -41,7 +41,7 @@
 }
 
 % !!!apacite laden *na* hyerref!!!
-\usepackage{apacite} % voor APA-style referenties
+\usepackage[nosectionbib]{apacite} % voor APA-style referenties
 \bibliographystyle{apacite}
 
 %% Change appearance of titles
@@ -186,8 +186,15 @@ C    & 21                & 25              & 20                  \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\backmatter
+%\backmatter  %%% niet gebruiken anders worden de bijlagen niet "genummerd"
 
 \bibliography{thesis_coverpage}
+
+\appendix
+
+\chapter{Rainfall tables}
+In this appendix the rainfall tables are presented.
+
+
 
 \end{document}
