@@ -3,10 +3,6 @@
 \documentclass[a4paper,12pt]{book} % Layout dubbelzijdig
 \usepackage{tikz} % Nodig voor voorkant
 \usepackage[outer=3.0cm,top=3cm,inner=2.0cm,bottom=3cm,bindingoffset=0.5cm,marginparwidth=5mm,marginparsep=5mm]{geometry} % Instellen pagina-opmaak
-%\usepackage{charter} % Lettertype
-%\usepackage[sfdefault,lining]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
-%\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
-%\usepackage[T1]{fontenc}
 \usepackage[T1]{fontenc}
 \usepackage[sfdefault,lining]{FiraSans}
 \usepackage{newtxsf}
@@ -14,6 +10,7 @@
 \usepackage[dutch]{babel} % Nederlands als taal
 \usepackage{parskip} % Niet inspringen en ruimte tussen alinea's
 \usepackage[onehalfspacing]{setspace} % Regelafstand 1.5
+\usepackage{booktabs} % mooi afgewerkte tabellen
 
 %% Clear header and footer for blank pages, possibly print "This page ..."
 %\newcommand{\thispageintentionallyleftblank}{Deze pagina is opzettelijk leeg gelaten}
@@ -42,6 +39,10 @@
     pdfstartview=FitH,
     pdfpagelayout=TwoPageRight,
 }
+
+% !!!apacite laden *na* hyerref!!!
+\usepackage{apacite} % voor APA-style referenties
+\bibliographystyle{apacite}
 
 %% Change appearance of titles
 %% http://archive.cs.uu.nl/mirror/CTAN/macros/latex/contrib/titlesec/titlesec.pdf
@@ -119,10 +120,22 @@
 	  \node[white] (subtitle) [align=center,text width=\paperwidth-8cm, anchor=north] at ([yshift=-10cm]current page.north) {\coverpagefontisubtitle\begin{hyphenrules}{nohyphenation} --- Een innovatieve aanpak ---\end{hyphenrules}\par};
   \end{tikzpicture}
 
+\newpage
+\hspace*{0pt}
+
+\vfill
+\small{
+	Deze scriptie is gemaakt in het kader van de afstudeerstage bij de opleiding Civiele Techniek.
+	Aan deze scriptie kunnen geen rechten worden ontleend.
+
+	Deze scriptie is tot stand gekomen met de medewerking van The Netherlands Water Partnership (\url{https://www.netherlandswaterpartnership.com/}).
+}
+
 \frontmatter
 \chapter{Voorwoord}
 \kant[1-2]
-{\bigskip\hfill\slshape \the\year, S. Tudent}
+{\bigskip\hfill\slshape\ifcase \month \or Januari\or Februari\or Maart\or April\or Mei%
+\or Juni\or Juli\or Augustus\or September\or October\or November\or December\fi\ \the\year, S. Tudent}
 \tableofcontents
 \chapter{Samenvatting}
 \kant[1-2]
@@ -153,8 +166,28 @@ Zie figuur~\ref{fig:fig1}.
 \kant[1]
 In~\eqref{equ:equ1} wordt aangegeven \ldots
 
+In~\cite{oweis2003improving} wordt beschreven hoe de waterproductieviteit in \ldots\ kan worden verhoogd.
+
 \begin{equation}
 \label{equ:equ1}
 \int_{0}^{\infty} \frac{1}{x}\ln x\, \mathrm{d}x = \ldots
 \end{equation}
+
+\begin{table}[!ht]
+\centering
+\caption{Meteorologische gegevens per stad in de maand juli 2017.}
+\label{tab:my-table}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+Stad & Neerslag {[}mm{]} & Zonuren {[}h{]} & Temperatuur {[}C{]} \\ \midrule
+A    & 25                & 36              & 19                  \\
+B    & 23                & 40              & 21                  \\
+C    & 21                & 25              & 20                  \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\backmatter
+
+\bibliography{thesis_coverpage}
+
 \end{document}
