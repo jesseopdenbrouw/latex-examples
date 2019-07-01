@@ -30,8 +30,8 @@
 %% http://mirror.koddos.net/CTAN/macros/latex/contrib/hyperref/doc/manual.pdf
 \usepackage{hyperref}
 \hypersetup{
-%	plainpages=false,
-	breaklinks=true,
+%    plainpages=false,
+    breaklinks=true,
     colorlinks=true,
     linkcolor=black,
     linkcolor=black,
@@ -98,6 +98,7 @@
 \definecolor{thuasgrey}{RGB}{34,51,67}
 
 \begin{document}
+  %% The front page (or title page if you wish...)
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay]
       \node (image) [shape=rectangle,draw=none, minimum width=\paperwidth, minimum height=\paperheight] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{photo.jpg}};
