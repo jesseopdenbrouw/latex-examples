@@ -1,6 +1,6 @@
 \documentclass[12pt,fleqn]{article}
 
-\usepackage[dutch]{babel}
+\usepackage[english]{babel}
 \usepackage[a4paper,left=1in,right=1in,top=1in,bottom=1.5in]{geometry}
 \usepackage{parskip}
 \usepackage{mathtools}
@@ -40,36 +40,36 @@
 
 
 \begin{document}
-\section*{Macro's voor gebruik met complexe getallen met \imaginaryunit}
-De imaginaire eenheid is: \imaginaryunit.
+\section*{Macros for using complex numbers with \imaginaryunit}
+The imaginary unit is: \imaginaryunit.
 
-Zet de imaginaire eenheid met: \verb|\newcommand{\imaginaryunit}{j}| (default)
+Set the imaginary unit with: \verb|\renewcommand{\imaginaryunit}{j}| (default)
 
-In math-mode: $\imunit$. Gebruik in math-mode: \verb|\imunit|
+In math-mode: $\imunit$. Use in math-mode: \verb|\imunit|
 
-De constante e in math-mode $\ce$. Gebruik in math-mode: \verb|\ce|
+The constant e in math-mode $\ce$. Use in math-mode: \verb|\ce|
 
-Reële e-macht: $\epowre{-2} = 0,13533528\ldots$ Gebruik in math-mode: \verb|\epowre{arg}|
+Real power of e: $\epowre{-2} = 0,13533528\ldots$ Use in math-mode: \verb|\epowre{arg}|
 
-Imaginaire e-macht: $\epowim{\alpha}$. Gebruik in math-mode: \verb|\epowim{arg}|
+Imaginary power of e: $\epowim{\alpha}$. Use in math-mode: \verb|\epowim{arg}|
 
-Goniometrisch complex: $\cis{\alpha}$. Gebruik in math-mode: \verb|\cis{arg}|
+Goniometic complex: $\cis{\alpha}$. Use in math-mode: \verb|\cis{\alpha}|
 
-Goniometrisch complex: $\cis{-\alpha}$. Gebruik in math-mode: \verb|\cis{-arg}|
+Goniometic complex: $\cis{-\alpha}$. Use in math-mode: \verb|\cis{-\alpha}|
 
-Goniometrisch complex: $\cis{{\omega t}}$. Gebruik in math-mode: \verb|\cis{{arg}}|
+Goniometic complex: $\cis{{\omega t}}$. Use in math-mode: \verb|\cis{\omega t}}|
 
-Goniometrisch complex: $\cis{-{\omega t}}$. Gebruik in math-mode: \verb|\cis{-{arg}}|
+Goniometic complex: $\cis{-{\omega t}}$. Use in math-mode: \verb|\cis{-{\omega t}}|
 
-Goniometrisch complex: $\cis{{-\omega t}}$. Gebruik in math-mode: \verb|\cis{{-arg}}|
+Goniometic complex: $\cis{{-\omega t}}$. Use in math-mode: \verb|\cis{{-\omega t}}|
 
-Complexe e-macht: $\epowcom{\sigma}{\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{\omega t}|
+Complex power of e: $\epowcom{\sigma}{\omega t}$. Use in math-mode: \verb|\epowcom{\sigma}{\omega t}|
 
-Complexe e-macht: $\epowcom{\sigma}{-\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
+Complex power of e: $\epowcom{\sigma}{-\omega t}$. Use in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
 
-Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
+Together: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
 
-Nu samen: $\epowcom{\sigma}{-\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
+Together: $\epowcom{\sigma}{-\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
 
 
 \begin{figure}[!h]
@@ -88,41 +88,41 @@ Nu samen: $\epowcom{\sigma}{-\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
 \node at (\uangle/2:0.4) {$\alpha$};
 \node at (1,0) [xshift=50pt,right,font=\normalsize] {$\epowim{\alpha} = \cis{\alpha}$};
 \end{tikzpicture}
-\caption{Complexe eenheidscirkel.}
+\caption{Complex unit circle.}
 \end{figure}
 
 \newpage
 \renewcommand{\imaginaryunit}{i}
-\section*{Macro's voor gebruik met complexe getallen met \imaginaryunit}
-De imaginaire eenheid is: \imaginaryunit.
+\section*{Macros for using complex numbers with \imaginaryunit}
+The imaginary unit is: \imaginaryunit.
 
-Zet de imaginaire eenheid met: \verb|\newcommand{\imaginaryunit}{i}|
+Set the imaginary unit with: \verb|\renewcommand{\imaginaryunit}{i}|
 
-In math-mode: $\imunit$. Gebruik in math-mode: \verb|\imunit|
+In math-mode: $\imunit$. Use in math-mode: \verb|\imunit|
 
-De constante e in math-mode $\ce$. Gebruik in math-mode: \verb|\ce|
+The constant e in math-mode $\ce$. Use in math-mode: \verb|\ce|
 
-Reële e-macht: $\epowre{-2} = 0,13533528\ldots$ Gebruik in math-mode: \verb|\epowre{arg}|
+Real power of e: $\epowre{-2} = 0,13533528\ldots$ Use in math-mode: \verb|\epowre{arg}|
 
-Imaginaire e-macht: $\epowim{\alpha}$. Gebruik in math-mode: \verb|\epowim{arg}|
+Imaginary power of e: $\epowim{\alpha}$. Use in math-mode: \verb|\epowim{arg}|
 
-Goniometrisch complex: $\cis{\alpha}$. Gebruik in math-mode: \verb|\cis{arg}|
+Goniometic complex: $\cis{\alpha}$. Use in math-mode: \verb|\cis{\alpha}|
 
-Goniometrisch complex: $\cis{-\alpha}$. Gebruik in math-mode: \verb|\cis{-arg}|
+Goniometic complex: $\cis{-\alpha}$. Use in math-mode: \verb|\cis{-\alpha}|
 
-Goniometrisch complex: $\cis{{\omega t}}$. Gebruik in math-mode: \verb|\cis{{arg}}|
+Goniometic complex: $\cis{{\omega t}}$. Use in math-mode: \verb|\cis{\omega t}}|
 
-Goniometrisch complex: $\cis{-{\omega t}}$. Gebruik in math-mode: \verb|\cis{-{arg}}|
+Goniometic complex: $\cis{-{\omega t}}$. Use in math-mode: \verb|\cis{-{\omega t}}|
 
-Goniometrisch complex: $\cis{{-\omega t}}$. Gebruik in math-mode: \verb|\cis{{-arg}}|
+Goniometic complex: $\cis{{-\omega t}}$. Use in math-mode: \verb|\cis{{-\omega t}}|
 
-Complexe e-macht: $\epowcom{\sigma}{\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{\omega t}|
+Complex power of e: $\epowcom{\sigma}{\omega t}$. Use in math-mode: \verb|\epowcom{\sigma}{\omega t}|
 
-Complexe e-macht: $\epowcom{\sigma}{-\omega t}$. Gebruik in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
+Complex power of e: $\epowcom{\sigma}{-\omega t}$. Use in math-mode: \verb|\epowcom{\sigma}{-\omega t}|
 
-Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
+Together: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{{\omega t}})$
 
-Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
+Together: $\epowcom{\sigma}{-\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
 
 \renewcommand{\Re}{\mathrm{Re}}  % Redefine \Re
 \renewcommand{\Im}{\mathrm{Im}}  % Redefine \Im
@@ -143,7 +143,7 @@ Nu samen: $\epowcom{\sigma}{\omega t} = \epowre{\sigma}(\cis{-{\omega t}})$
 \node at (\uangle/2:0.4) {$\alpha$};
 \node at (1,0) [xshift=50pt,right,font=\normalsize] {$\epowim{-\alpha} = \cis{-\alpha}$};
 \end{tikzpicture}
-\caption{Complexe eenheidscirkel.}
+\caption{Complex unit circle.}
 \end{figure}
 
 \end{document}
