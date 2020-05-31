@@ -69,6 +69,18 @@ Input by user (*\emph{123}*)
 Output of program (*\hfill\normalfont\emph{(Some text on the right)}*)
 \end{dosbox}
 
+This box is generated with:
+
+\begin{lstlisting}[style=lstempty,caption=,escapeinside={}{}]
+\begin{dosbox}[title=Output of some program.,label=fig:output]
+Output of some program.
+Input by user: (*\textbf{123}*)
+Input by user (*\underline{123}*)
+Input by user (*\emph{123}*)
+Output of program (*\hfill\normalfont\emph{(Some text on the right)}*)
+\end{dosbox}
+\end{lstlisting}
+
 Use \texttt{title=...} to set your caption text.
 
 Use \texttt{blend before title code} to explicitly copy the format of your caption setup.
