@@ -1,0 +1,165 @@
+%%
+%%
+%% LaTeX/TikZ sample code to plot and calculate the diode
+%% operating point with known circuit parameters
+%%
+%% (c)2021, J. op den Brouw <J.E.J.opdenBrouw@hhs.nl>
+%%
+%%
+\documentclass[a4paper,fleqn]{article}
+\usepackage[showframe]{geometry}
+\usepackage[latin1]{inputenc}
+\usepackage{nimbusmono}
+\usepackage[bitstream-charter]{mathdesign}
+\usepackage[stretch=10]{microtype}
+\usepackage[english]{babel}
+\usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=sl,up]{caption}
+\captionsetup[figure]{format=hang,justification=centering,singlelinecheck=off,skip=2ex}
+\captionsetup[table]{format=hang,justification=centering,singlelinecheck=off,skip=2ex}
+\captionsetup[subfigure]{format=hang,justification=centering,singlelinecheck=off,skip=2ex}
+\captionsetup[subtable]{format=hang,justification=centering,singlelinecheck=off,skip=2ex}
+\usepackage{sansmath}
+\usepackage{mathtools}
+\setlength{\mathindent}{1em}
+\usepackage{parskip}
+\usepackage{siunitx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Circuit dimensions for standard silicon diode
+%
+\newcommand{\n}{1.0}                  % Ideality factor
+\newcommand{\Is}{0.0000000001}        % Reverse saturation current in mA
+\newcommand{\Vs}{1.0}                 % The voltage source
+\newcommand{\Rs}{0.025}               % The series resistor in kOhm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TIKZ AND FRIENDS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usepackage[betterproportions]{circuitikz}
+\usepackage{pgfplots}
+\usetikzlibrary{intersections}
+\usepgfplotslibrary{units}
+
+% New dashed-dotted style
+%\tikzstyle{loosely dashdotted} = [dash pattern=on 3pt off 4pt on \the\pgflinewidth off 4pt]
+% Directory prefix for Gnuplot plots
+\tikzset{prefix=gnuplot/}
+% Bipoles have the same line witdh as the wires
+\ctikzset{bipoles/thickness=1}
+
+% Transform x coordinate to graph coordinate
+\makeatletter
+\newcommand\transformxdimension[1]{%
+    \pgfmathparse{((#1/\pgfplots@x@veclength)+\pgfplots@data@scale@trafo@SHIFT@x)/10^\pgfplots@data@scale@trafo@EXPONENT@x}%
+}
+% Transform y coordinate to graph coordinate
+\newcommand\transformydimension[1]{%
+    \pgfmathparse{((#1/\pgfplots@y@veclength)+\pgfplots@data@scale@trafo@SHIFT@y)/10^\pgfplots@data@scale@trafo@EXPONENT@y}%
+}
+\makeatother
+
+
+\begin{document}
+% kT/q for 25 C
+%\pgfmathparse{0.861733033*0.2985/10.0}\pgfmathresult
+
+\pagestyle{empty}
+
+\section*{Operating point of a diode}
+
+The circuit is shown in Figure~\ref{fig:1}:
+
+\begin{figure}[!ht]
+\centering
+\begin{circuitikz}[line width=1pt]
+\draw (0,0) to[V_<=$V_S$] (0,-2);
+\draw (0,0) to[R=$R_S$, -*] (2,0);
+\draw (2,0) to[short, i=$I_D$] (4,0);
+\draw (4,0) to[empty diode, l=$D$] (4,-2);
+\draw (4,-2) to[short, -*] (2,-2);
+\draw (2,-2) to[short] (0,-2);
+\draw[latex-latex,shorten <=5pt,shorten >=5pt,thin] (2,0) -- (2,-1) node[anchor=east] {$V_D$} -- (2,-2);
+\end{circuitikz}
+\caption{Series circuit of a voltage source, a resistor and a diode.}
+\label{fig:1}
+\end{figure}
+
+The voltage of the source is \SI{\Vs}{\volt}. The resistance of the resistor is \SI{\Rs}{\kilo\ohm}.
+
+The voltage-current relation of a diode is:
+%
+\begin{equation}
+I_D = I_S\cdot\left(\text{e}^{\left(\frac{V_D}{n\cdot V_T}\right)}-1\right)
+\end{equation}
+%
+With:
+\begin{itemize}\itemsep-4pt
+\item[] $I_D$: The diode current;
+\item[] $I_S$: The reverse bias saturation current, typically \SI{1e-12}{\ampere};
+\item[] $V_D$: The voltage in forward direction;
+\item[] $n$ : The ideality factor, typically 1 (between 1 and 2);
+\item[] $V_T$: The thermal voltage, \SI{25.69257}{\milli\volt} at \SI{25}{\degreeCelsius};
+\end{itemize}
+
+The curves of the load lines are shown in Figure~\ref{fig:2}. The blue line is the load line of the voltage source and the resistor, the red line is the load line of the diode. Where they intersect, is the operating point of the diode.
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+	\begin{axis}[
+        width=8cm,height=5cm,
+		xlabel=$U_D$,
+		x unit=V,
+		ylabel=$I_D$,
+		y unit=mA,
+		xtick={\Vs/10,\Vs/5,...,\Vs*1.05},
+		axis x line*=bottom,
+		axis y line*=left,
+        xmin=0, xmax=\Vs*1.05,
+        ymin=0, ymax=\Vs/\Rs*1.05,
+        restrict y to domain=0:1000,
+        x tick label style={
+        /pgf/number format/.cd,
+            fixed,
+            fixed zerofill,
+            precision=1,
+    	    1000 sep={},
+            /tikz/.cd,
+        }
+	]
+	% Draw diode curve, diode current is in mA
+	\addplot [domain=0:\Vs,samples=201,red,thick,name path=dline] {\Is*(exp(x/(\n*0.02569257028945))-1)};
+	% Draw load line
+	\addplot [domain=0:\Vs,samples=201,blue,thick,name path=rline] {(\Vs-x)/\Rs};
+	% Find the intersection of the diode curve and the load line
+	\path [name intersections={of=rline and dline , by=op}];
+	% Draw horizontal an vertical li lines
+	\draw [dashed] ({{0,0}} |- op) -- (op);
+	\draw [dashed] ({{0,0}} -| op) -- (op);
+	
+	% Calculate the intersection coordinates and print them
+	\path[reset cm] (op) node [above right,xshift=5pt] {\footnotesize(\pgfgetlastxy{\macrox}{\macroy}%
+        \transformxdimension{\macrox}%
+        %\pgfmathprintnumberto{\pgfmathresult}{\dummy}\global\edef\udiode{\dummy}%
+        \pgfmathsetmacro{\dummy}{\pgfmathresult}\global\edef\udiode{\dummy}%
+        \pgfmathprintnumber{\pgfmathresult},%
+        \transformydimension{\macroy}%
+        %\pgfmathprintnumberto{\pgfmathresult}{\dummy}\global\edef\idiode{\dummy}%
+        \pgfmathsetmacro{\dummy}{\pgfmathresult}\global\edef\idiode{\dummy}%
+        \pgfmathprintnumber{\pgfmathresult})};
+	\end{axis}
+\end{tikzpicture}
+\caption{Load line of the series circuit of a diode, a resistor and a voltage source.}
+\label{fig:2}
+\end{figure}
+
+%Via Maple is gevonden: $U_D = 0,6587471914$ V en $I_D = 13,65011234$ mA.
+For the operating point, the diode forward voltage is \SI[round-mode=places,round-precision=2]{\udiode}{\volt} and the diode current is \SI[round-mode=places,round-precision=2]{\idiode}{\milli\ampere}.
+
+\end{document}
