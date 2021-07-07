@@ -1,0 +1,35 @@
+\documentclass[tikz,border=0mm]{standalone}
+
+\usetikzlibrary{intersections}
+
+\begin{document}
+  
+  \newcommand{\step}{.25}
+  \begin{tikzpicture}[>=latex,xscale=2,yscale=2,font={\fontfamily{phv}\selectfont}]
+	\pgfmathsetmacro{\vertend}{2*pi}
+	\pgfmathsetmacro{\diagend}{2*pi-\step}
+    \draw [name path=sawtooth vert, line join=miter,black!60!green] 
+      \foreach \x in {0,\step,...,\vertend} {
+        (\x,0.5) to[bend left=0] ++(0,-1.0)  % y domain = -0.5 -- 0.5
+      };
+     \draw [name path=sawtooth diag,line join=miter,black!60!green]   
+      \foreach \x in {0,\step,...,\diagend} {
+       (\x,-0.5) to[bend left=0] ++(\step,1.0)};
+      \draw [red,smooth, domain=0:2*pi, name path global=wave-1] plot ({\x},{0.5*sin((\x+0) r)});
+      \path [name intersections={of={wave-1} and {sawtooth vert}, name=x, total=\n}]
+         \pgfextra{\typeout{\n\space intersections\space in\space vert}};
+      \draw [blue,name intersections={of={wave-1} and {sawtooth diag}, total=\n}]
+      \pgfextra{\typeout{\n\space intersections}}
+        \foreach \i in {1,...,\n} {
+            (x-\i |- 0,-1.25) rectangle (intersection-\i |- 0,-2.25)
+        };
+    \draw [->] (0,-0.5) -- ++(6.5,0) node [right] {\footnotesize\textit{t}};
+    \draw [->] (0,-0.5) -- ++(0,1.2) node [midway, left, xshift=-0.2cm] {\footnotesize\rotatebox{90}{Source signals}};
+    \draw [->] (0,-2.25) -- ++(6.5,0) node [right] {\footnotesize\textit{t}};
+    \draw [->] (0,-2.25) -- ++(0,1.2) node [midway, left, xshift=-0.2cm] {\footnotesize\rotatebox{90}{PWM signal}};      
+
+  \end{tikzpicture}
+  
+  
+  
+\end{document}
