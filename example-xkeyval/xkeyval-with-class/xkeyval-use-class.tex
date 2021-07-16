@@ -1,0 +1,21 @@
+\documentclass[landscape,parindent=20pt,color=green!30!black]{xkeyval-class}
+
+\usepackage{showframe}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{charter}
+
+\begin{document}
+\blindtext[1]
+
+\bigskip
+
+`\texttt{landscape} set to \iflandscape \texttt{true}\else \texttt{false}\fi
+
+`\texttt{parindent}' set to \the\parindent
+
+\bigskip
+
+\blindtext[1]
+
+\end{document}
