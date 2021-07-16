@@ -2,14 +2,12 @@
 % This LaTeX document calculates the first n Fibonacci numbers
 % for 2 < n < 48. For n > 47, overflow occurs.
 %
-% (c)2018, Jesse op den Brouw <J.E.J.opdenBrouw@hhs.nl>
+% (c)2021, Jesse op den Brouw <J.E.J.opdenBrouw@hhs.nl>
 %
 % License: LPPL, https://www.latex-project.org/lppl/
 
 \documentclass[a4paper]{article}
 
-\begin{document}
-\raggedright
 
 % The counters
 \newcount\n \newcount\fibo \newcount\fiboprev \newcount\temp
@@ -22,14 +20,17 @@
 	\temp=\fibo
 	\advance\fibo by \fiboprev
 	\fiboprev=\temp
-	\ifnum\n>1 , \else{} en~\fi
+	\ifnum\n>1\relax , \else{} and~\fi
 	\the\fibo
 	\advance\n by -1\relax
-	\ifnum\n>0
+	\ifnum\n>0\relax
 \repeat
 }
 
+\begin{document}
+\raggedright
+
 \noindent
-De eerste 47 Fibonacci-nummers zijn \fibonacci{47}.
+The first 47 Fibonacci numbers are \fibonacci{47}.
 
 \end{document}
