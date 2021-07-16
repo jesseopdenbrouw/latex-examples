@@ -1,0 +1,70 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{xcolor}
+\usepackage[showframe]{geometry}
+\usepackage{parskip}
+\usepackage[english]{babel}
+\usepackage{kantlipsum}
+\usepackage{xkeyval}
+\usepackage{xkvview}
+
+
+% The indent from the left and right, defaults to 0 pt
+\newlength{\myenvmargin}
+\setlength{\myenvmargin}{0pt}
+
+% The default text color
+\def\myenvtextcolor{black}
+% Default style as a number
+\def\myenvstylenr{0}
+
+% Defining the keys
+\makeatletter
+\define@key{myenv}{margin}[0pt]{\setlength\myenvmargin{#1}}
+\define@key{myenv}{color}[black]{\def\myenvtextcolor{#1}}
+\define@boolkey{myenv}{lines}[true]{}
+%\define@choicekey{myenv}{style}[\val\myenvnr]{up,sc,it,sl}{\def\mystyle{#1}\def\myenvstylenr{\myenvnr}}
+\define@choicekey{myenv}{style}[\val\myenvnr]{up,sc,it,sl}{\def\myenvstylenr{\myenvnr}}
+
+\newenvironment{myenv}[1][]{%
+    % parse keys
+    \setkeys{myenv}{#1}%
+    % set the left and right margin
+    \leftskip=\myenvmargin%
+    \rightskip=\myenvmargin%
+    % set the color
+    \color{\myenvtextcolor}%
+    % render a rule
+    \ifKV@myenv@lines\medskip\hrule\fi%
+    % set the font shape
+    \ifcase\myenvstylenr\upshape\or\scshape\or\itshape\or\slshape\else\upshape\fi%
+    
+}{%
+    % reset shape
+    \upshape%
+    \def\myboxstylenr{0}%
+    % render a rule
+    \ifKV@myenv@lines\vspace*{4pt}\hrule\fi%
+    % set default color to black
+    \color{black}%
+}
+\makeatother
+
+\begin{document}
+
+\begin{myenv}
+\kant[1]
+\end{myenv}
+
+\begin{myenv}[margin=20pt,color=purple,lines,style=sl]
+\kant[2]
+\end{myenv}
+
+\begin{myenv}
+\kant[3]
+\end{myenv}
+
+\newpage
+\xkvview{}
+
+\end{document}
