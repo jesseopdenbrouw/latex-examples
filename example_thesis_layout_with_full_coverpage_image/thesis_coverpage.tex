@@ -1,5 +1,23 @@
 % !TeX TS-program = pdflatex
 
+%
+% Example of a thesis for The Hague University of Applied Sciences (THUAS)
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is M. Y. Name.
+%
+% This work consists of the files thesis_coverpage.txt, photo.jpg
+% and thesis_coverpage.bib
+
 \documentclass[a4paper,12pt]{book} % Layout dubbelzijdig
 \usepackage{tikz} % Nodig voor voorkant
 \usepackage[outer=3.0cm,top=3cm,inner=2.0cm,bottom=3cm,bindingoffset=0.5cm,marginparwidth=5mm,marginparsep=5mm]{geometry} % Instellen pagina-opmaak
@@ -102,22 +120,22 @@
   %% The front page (or title page if you wish...)
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay]
-      \node (image) [shape=rectangle,draw=none, minimum width=\paperwidth, minimum height=\paperheight] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{photo.jpg}};
-
-      \node (thuas) [shape=rectangle, fill=thuasgreen, minimum height=40mm, minimum width=\paperwidth, anchor=south west,opacity=0.5] at (current page.south west) {};
-      \node[white] at (thuas.center) {\coverpagefontthuas De Haagse Hogeschool};
-
-      \node (bar) [shape=rectangle, fill=thuasgrey, minimum width=\paperwidth, anchor=west, minimum height=1cm, opacity=0.8] at ([yshift=8cm]current page.south west) {};
-
-      \node (student) at ([yshift=11cm,xshift=-1cm]current page.south east) {};
-      \node[white,align=flush right,anchor=east] at (student.north east) {\coverpagefontstudent S. Tudent \\[2ex]\coverpagefontstudent 12345678\\[2ex]\coverpagefontstudent S.Tudent@student.hhs.nl\par};
-
-      \node (opleiding) at ([yshift=6cm,xshift=-1cm]current page.south east) {};
-      \node[white,align=flush right,anchor=east] at (opleiding.north east) {\coverpagefontopleiding Opleiding Civiele Techniek\par};
-
-	  \node[white] (title) [align=center,text width=\paperwidth-8cm, anchor=north] at ([yshift=-3cm]current page.north) {\coverpagefonttitle\begin{hyphenrules}{nohyphenation} Watermanagement in droge omgevingen \end{hyphenrules}\par};
-
-	  \node[white] (subtitle) [align=center,text width=\paperwidth-8cm, anchor=north] at ([yshift=-10cm]current page.north) {\coverpagefontisubtitle\begin{hyphenrules}{nohyphenation} --- Een innovatieve aanpak ---\end{hyphenrules}\par};
+    \node (image) [shape=rectangle,draw=none, minimum width=\paperwidth, minimum height=\paperheight] at (current page.center) {\includegraphics[width=\paperwidth,height=\paperheight]{photo.jpg}};
+        
+    \node (thuas) [shape=rectangle, fill=thuasgreen, minimum height=40mm, minimum width=\paperwidth, anchor=south west,opacity=0.5] at (current page.south west) {};
+        \node[white] at (thuas.center) {\coverpagefontthuas De Haagse Hogeschool};
+        
+    \node (bar) [shape=rectangle, fill=thuasgrey, minimum width=\paperwidth, anchor=west, minimum height=1cm, opacity=0.8] at ([yshift=8cm]current page.south west) {};
+        
+    \node (student) at ([yshift=11cm,xshift=-1cm]current page.south east) {};
+    \node[white,align=flush right,anchor=east] at (student.north east) {\coverpagefontstudent S. Tudent \\[2ex]\coverpagefontstudent 12345678\\[2ex]\coverpagefontstudent S.Tudent@student.hhs.nl\par};
+        
+    \node (opleiding) at ([yshift=6cm,xshift=-1cm]current page.south east) {};
+    \node[white,align=flush right,anchor=east] at (opleiding.north east) {\coverpagefontopleiding Opleiding Civiele Techniek\par};
+        
+    \node[white] (title) [align=center,text width=\paperwidth-8cm, anchor=north] at ([yshift=-3cm]current page.north) {\coverpagefonttitle\begin{hyphenrules}{nohyphenation} Watermanagement in droge omgevingen \end{hyphenrules}\par};
+        
+    \node[white] (subtitle) [align=center,text width=\paperwidth-8cm, anchor=north] at ([yshift=-10cm]current page.north) {\coverpagefontisubtitle\begin{hyphenrules}{nohyphenation} --- Een innovatieve aanpak ---\end{hyphenrules}\par};
   \end{tikzpicture}
 
 \newpage
@@ -125,18 +143,22 @@
 
 \vfill
 \small{
-	Deze scriptie is gemaakt in het kader van de afstudeerstage bij de opleiding Civiele Techniek.
-	Aan deze scriptie kunnen geen rechten worden ontleend.
-
-	Deze scriptie is tot stand gekomen met de medewerking van The Netherlands Water Partnership (\url{https://www.netherlandswaterpartnership.com/}).
+    Deze scriptie is gemaakt in het kader van de afstudeerstage bij de opleiding Civiele Techniek.
+    Aan deze scriptie kunnen geen rechten worden ontleend.
+    
+    Deze scriptie is tot stand gekomen met de medewerking van The Netherlands Water Partnership (\url{https://www.netherlandswaterpartnership.com/}).
 }
 
+%% The front matter. Chapters are unnumbered by appear in the TOC.
+%% Page numbers are roman numerals, lower case
 \frontmatter
+
 \chapter{Voorwoord}
 \kant[1-2]
 {\bigskip\hfill\slshape\ifcase \month \or Januari\or Februari\or Maart\or April\or Mei%
 \or Juni\or Juli\or Augustus\or September\or October\or November\or December\fi\ \the\year, S. Tudent}
 \tableofcontents
+
 \chapter{Samenvatting}
 \kant[1-2]
 
@@ -179,14 +201,16 @@ In~\cite{oweis2003improving} wordt beschreven hoe de waterproductieviteit in \ld
 \label{tab:my-table}
 \begin{tabular}{@{}cccc@{}}
 \toprule
-Stad & Neerslag {[}mm{]} & Zonuren {[}h{]} & Temperatuur {[}C{]} \\ \midrule
+Stad & Neerslag {[}mm{]} & Zonuren {[}h{]} & Temperatuur {[}$^{\circ}$C{]} \\ \midrule
 A    & 25                & 36              & 19                  \\
 B    & 23                & 40              & 21                  \\
 C    & 21                & 25              & 20                  \\ \bottomrule
 \end{tabular}
 \end{table}
 
-%\backmatter  %%% niet gebruiken anders worden de bijlagen niet "genummerd"
+\citeauthor{sivanappan1995soil} in \cite{sivanappan1995soil} beschrijft $\ldots$
+
+In \cite{turner2011agricultural} $\ldots$
 
 \bibliography{thesis_coverpage}
 
@@ -195,6 +219,7 @@ C    & 21                & 25              & 20                  \\ \bottomrule
 \chapter{Rainfall tables}
 In this appendix the rainfall tables are presented.
 
+\backmatter  %%% na alle \chapters
 
 
 \end{document}
