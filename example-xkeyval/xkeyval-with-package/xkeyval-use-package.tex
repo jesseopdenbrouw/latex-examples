@@ -1,0 +1,95 @@
+%%
+%% xkeyval-use-package.tex
+%%
+%% Xkeyval in package test file, to demonstrate xkeyval
+%%
+%% (c)2021, Jesse op den Brouw <J.E.J.opdenBrouw@hhs.nl>
+%%
+%% License: LPPL, https://www.latex-project.org/lppl/
+
+\documentclass[12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{charter}
+\usepackage{nimbusmono}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{parskip}
+
+\usepackage{listings}
+\lstset{
+    language=[AlLaTeX]TeX,
+    basicstyle=\footnotesize\ttfamily,
+    backgroundcolor=\color{gray!10!white},
+    moretexcs={setlength,or},
+    escapeinside={(*}{*)}
+}
+
+% Set package options: parindent is 20 pt and text color is blue and style is small caps
+\usepackage[parindent=25pt,color=blue,style=sc,showindent=true]{xkeyval-package}
+
+\title{Example of the \texttt{xkeyval} package for package writers}
+\author{J. op den Brouw\thanks{The Hague University of Applied Sciences, \texttt{J.E.J.opdenBrouw@hhs.nl}}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+This simple test package is conceived to demonstrate the use of \emph{key}/\emph{value} option processing for packages and macros. The test package can be loaded with:
+
+\begin{lstlisting}
+\usepackage[(*$\langle$\rmfamily\emph{options}$\rangle$*)]{xkeyval-package}
+\end{lstlisting}
+
+where \emph{options} is a list of options:
+
+\texttt{parindent}=\emph{skip}, default 0pt\\
+\texttt{color}=\emph{color}, default is black\\
+\texttt{style}=\emph{up|sl|sc|it}, default is up\\
+\texttt{showindent}=\emph{true|false}, default is false
+
+As an example:
+
+\begin{lstlisting}
+\usepackage[parindent=15pt,color=blue,style=sc,showindent]{xkeyval-package}
+\end{lstlisting}
+
+The package has one macro:
+
+\begin{lstlisting}
+\mybox[(*$\langle$\rmfamily\emph{options}$\rangle$*)]{(* \rmfamily\emph{text} *)}
+\end{lstlisting}
+
+that typesets some simple text. The options are the same as the package options. The package options serve as the default for the macro, but can be overridden with per-macro invocations. As an example:
+\begin{lstlisting}
+\mybox[parindent=15pt,style=sc,color=blue,showindent=false]{\blindtext}
+\end{lstlisting}
+
+Best is to examine the package file in detail.
+
+\newpage
+
+\color{orange!80!black}
+Some text before $\ldots$ \texttt{parindent} = \the\parindent
+
+% Output text with all package options
+\mybox{\blindtext}
+
+% Output text with all macro options
+\mybox[parindent=100pt,color=red,style=sl]{\blindtext}
+
+% Output text with package parindent and greenish macro option
+\mybox[color=green!20!black]{\blindtext}
+
+% Output text with all package options
+\mybox[showindent=false]{\blindtext}
+
+Some text after $\ldots$ \texttt{parindent} = \the\parindent
+
+\newpage
+\color{black}
+
+\lstinputlisting{xkeyval-package.sty}
+
+\end{document}
