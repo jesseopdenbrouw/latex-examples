@@ -1,0 +1,60 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{xcolor}
+\usepackage[showframe]{geometry}
+\usepackage{parskip}
+\usepackage{xkeyval}
+\usepackage{xkvview}
+
+
+% The indent from the left, defaults to 0 pt
+\newlength{\myboxindent}
+\setlength{\myboxindent}{0pt}
+
+% The default text color
+\def\myboxtextcolor{black}
+% Default style as a number
+\def\myboxstylenr{0}
+
+% Defining the keys
+\makeatletter
+\define@key{mybox}{indent}[0pt]{\setlength\myboxindent{#1}}
+\define@key{mybox}{color}[black]{\def\myboxtextcolor{#1}}
+\define@boolkey{mybox}{ul}[true]{}
+%\define@choicekey{mybox}{style}[\val\myboxnr]{up,sc,it,sl}{\def\mystyle{#1}\def\myboxstylenr{\myboxnr}}
+\define@choicekey{mybox}{style}[\val\myboxnr]{up,sc,it,sl}{\def\myboxstylenr{\myboxnr}}
+
+% The command to test
+\newcommand\mybox[2][]{%
+    % parse keys
+    \setkeys{mybox}{#1}%
+    % some operations to typeset #2
+    % set indent and color
+    \hspace*{\myboxindent}\color{\myboxtextcolor}%
+    % set the font shape
+    \ifcase\myboxstylenr\upshape\or\scshape\or\itshape\or\slshape\else\upshape\fi%
+    % underline the text (or not)
+    \ifKV@mybox@ul\underline{#2}\else#2\fi%
+    % disable underline
+    \KV@mybox@ulfalse%
+    % reset color to black
+    \color{black}%
+    % reset shape
+    \upshape%
+    \def\myboxstylenr{0}%
+}
+\makeatother
+
+\begin{document}
+Some text
+
+\mybox[indent=1cm,color=blue,style=sc,ul]{Abc}
+
+More text
+
+\mybox[indent=2cm,color=red,style=it]{Def}\mybox[indent=3cm,color=purple,ul=true]{Klm}
+
+Even more text
+
+\xkvview{}
+\end{document}
