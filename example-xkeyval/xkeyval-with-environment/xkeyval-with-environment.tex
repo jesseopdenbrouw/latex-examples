@@ -1,3 +1,12 @@
+%%
+%% xkeyval-with-environment.tex
+%%
+%% key/value options in environments, to demonstrate xkeyval
+%%
+%% (c)2021, Jesse op den Brouw <J.E.J.opdenBrouw@hhs.nl>
+%%
+%% License: LPPL, https://www.latex-project.org/lppl/
+
 \documentclass[a4paper,12pt]{article}
 
 \usepackage{xcolor}
@@ -9,62 +18,75 @@
 \usepackage{xkvview}
 
 
-% The indent from the left and right, defaults to 0 pt
+% The margins from the left and right, defaults to 0 pt
 \newlength{\myenvmargin}
 \setlength{\myenvmargin}{0pt}
 
-% The default text color
-\def\myenvtextcolor{black}
 % Default style as a number
 \def\myenvstylenr{0}
 
 % Defining the keys
 \makeatletter
 \define@key{myenv}{margin}[0pt]{\setlength\myenvmargin{#1}}
-\define@key{myenv}{color}[black]{\def\myenvtextcolor{#1}}
+\define@key{myenv}{color}[.]{\colorlet{myenvtextcolor}{#1}}
 \define@boolkey{myenv}{lines}[true]{}
 %\define@choicekey{myenv}{style}[\val\myenvnr]{up,sc,it,sl}{\def\mystyle{#1}\def\myenvstylenr{\myenvnr}}
 \define@choicekey{myenv}{style}[\val\myenvnr]{up,sc,it,sl}{\def\myenvstylenr{\myenvnr}}
 
+% Define the environment
 \newenvironment{myenv}[1][]{%
-    % parse keys
+    % Inherit default color, the full stop is shortcut for current colir
+    \colorlet{myenvtextcolor}{.}%
+    % Parse keys
     \setkeys{myenv}{#1}%
-    % set the left and right margin
+    % Set the left and right margin
     \leftskip=\myenvmargin%
     \rightskip=\myenvmargin%
-    % set the color
-    \color{\myenvtextcolor}%
-    % render a rule
+    % Set the color
+    \color{myenvtextcolor}%
+    % Render a rule
     \ifKV@myenv@lines\medskip\hrule\fi%
-    % set the font shape
+    % Set the font shape
     \ifcase\myenvstylenr\upshape\or\scshape\or\itshape\or\slshape\else\upshape\fi%
-    
 }{%
-    % reset shape
-    \upshape%
+    % 
     \def\myboxstylenr{0}%
-    % render a rule
+    % Render a rule
     \ifKV@myenv@lines\vspace*{4pt}\hrule\fi%
-    % set default color to black
-    \color{black}%
 }
 \makeatother
 
+
 \begin{document}
 
+% Set the default text color to red
+\color{red}
+
+% The environment inherits red as color
 \begin{myenv}
 \kant[1]
 \end{myenv}
 
-\begin{myenv}[margin=20pt,color=purple,lines,style=sl]
+\color{blue}
+
+% Set all options
+\begin{myenv}[margin=20pt,color=violet,lines,style=sl]
 \kant[2]
 \end{myenv}
 
-\begin{myenv}
+% The environment inherits blue as color
+% Margins may be rubber lengths, here slightly overdone
+\begin{myenv}[margin=30pt plus 10pt minus 10pt]
 \kant[3]
 \end{myenv}
 
+\color{black}
+
 \newpage
+
+% Without an environment
+\kant[4]
+
 \xkvview{}
 
 \end{document}
