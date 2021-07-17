@@ -1,0 +1,378 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = nl_NL
+% !TeX TS-program = xelatex
+
+%% code-blocks.tex
+%%
+%% Listings with Code::Blocks coloring
+%%
+%% (c)2021, Jesse op den Brouw <J.E.J.opdenBrouw@hhs.nl>
+%%
+%% License: LPPL, https://www.latex-project.org/lppl/
+
+\documentclass[a4paper,10pt]{article}
+
+
+\usepackage{parskip}
+\usepackage{etoolbox}
+
+%% Find out what engine we're running...
+\usepackage{ifluatex,ifxetex}
+
+%% Different setup for lua and xe
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
+\usepackage[math-style=TeX]{unicode-math}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Calibri}
+\defaultfontfeatures{Scale=MatchUppercase}
+\setsansfont{Calibri}
+\setmonofont{Consolas}
+\setmathfont[slash-delimiter=frac]{Cambria Math}
+\setmathfont[range=up]{Calibri}
+\setmathfont[range=it]{Calibri Italic}
+\setmathfont[range=bfup]{Calibri Bold}
+\setmathfont[range=bfit]{Calibri Bold Italic}
+\setoperatorfont\normalfont % For log, sin, cos, etc.
+\else
+\usepackage[utf8]{inputenc}
+\usepackage{nimbusmono}
+\usepackage[scaled]{helvet}
+\let\oldhrulefill\hrulefill
+\usepackage[charter]{mathdesign}
+\let\hrulefill\oldhrulefill
+\fi
+
+%% Use computer code listings in the style of Code::Blocks
+\usepackage{listings}
+\makeatletter
+%% ) is now a token
+\patchcmd{\lsthk@SelectCharTable}{`)}{``}{}{}
+%% Replace \char32 with U-form vrule/hrule to match the tab char
+\AtBeginDocument{%
+\def\lst@visiblespace{\kern.06em\hbox{\vrule\@height.3ex}%
+                      \hrulefill\hbox{\vrule\@height.3ex}}}
+\makeatother
+
+%% Use textcomp for upright quotes in listings
+\usepackage{textcomp}
+\usepackage{xcolor}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{GKYgray}{rgb}{0.65,0.65,0.65}
+\definecolor{thuasgreen}{RGB}{158,167,0}
+\definecolor{lightpink}{HTML}{F8E0E0}%{FBF3F3}%
+\definecolor{cppgreen}{RGB}{0,160,0}
+\definecolor{comment}{RGB}{128,128,255}
+\definecolor{keyword}{RGB}{0,0,160}
+\definecolor{number}{RGB}{240,0,240}
+\definecolor{character}{RGB}{224,160,0}
+
+\newcommand{\CodeSymbol}[1]{\textcolor{red}{#1}}
+%% Define listing style for VHDL
+\lstset{%
+  language=C,
+  basicstyle=\small\ttfamily,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,                           
+  numbersep=8pt,
+  keywordstyle=\bfseries\color{keyword},
+  stringstyle=\color{blue},
+  commentstyle=\itshape\color{comment},
+  morecomment=[l][\color{cppgreen}]{\#},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=lines,
+  rulecolor=\color{black},
+  tabsize=4,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  title=\lstname,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  upquote=true,
+  aboveskip=1ex,
+  belowskip=2ex,
+  escapeinside={(*}{*)},
+  literate=%
+    *{0}{{{\textcolor{number}0}}}1
+    {1}{{{\textcolor{number}1}}}1
+    {2}{{{\textcolor{number}2}}}1
+    {3}{{{\textcolor{number}3}}}1
+    {4}{{{\textcolor{number}4}}}1
+    {5}{{{\textcolor{number}5}}}1
+    {6}{{{\textcolor{number}6}}}1
+    {7}{{{\textcolor{number}7}}}1
+    {8}{{{\textcolor{number}8}}}1
+    {9}{{{\textcolor{number}9}}}1
+    {.0}{{{\textcolor{number}{.0}}}}2
+    {.1}{{{\textcolor{number}{.1}}}}2
+    {.2}{{{\textcolor{number}{.2}}}}2
+    {.3}{{{\textcolor{number}{.3}}}}2
+    {.4}{{{\textcolor{number}{.4}}}}2
+    {.5}{{{\textcolor{number}{.5}}}}2
+    {.6}{{{\textcolor{number}{.6}}}}2
+    {.7}{{{\textcolor{number}{.7}}}}2
+    {.8}{{{\textcolor{number}{.8}}}}2
+    {.9}{{{\textcolor{number}{.9}}}}2
+    {.e}{{{\textcolor{number}{.e}}}}2
+    {.E}{{{\textcolor{number}{.E}}}}2
+    {0e}{{{\textcolor{number}{0e}}}}2
+    {1e}{{{\textcolor{number}{1e}}}}2
+    {2e}{{{\textcolor{number}{2e}}}}2
+    {3e}{{{\textcolor{number}{3e}}}}2
+    {4e}{{{\textcolor{number}{4e}}}}2
+    {5e}{{{\textcolor{number}{5e}}}}2
+    {6e}{{{\textcolor{number}{6e}}}}2
+    {7e}{{{\textcolor{number}{7e}}}}2
+    {8e}{{{\textcolor{number}{8e}}}}2
+    {9e}{{{\textcolor{number}{9e}}}}2
+    {0E}{{{\textcolor{number}{0e}}}}2
+    {1E}{{{\textcolor{number}{1E}}}}2
+    {2E}{{{\textcolor{number}{2E}}}}2
+    {3E}{{{\textcolor{number}{3E}}}}2
+    {4E}{{{\textcolor{number}{4E}}}}2
+    {5E}{{{\textcolor{number}{5E}}}}2
+    {6E}{{{\textcolor{number}{6E}}}}2
+    {7E}{{{\textcolor{number}{7E}}}}2
+    {8E}{{{\textcolor{number}{8E}}}}2
+    {9E}{{{\textcolor{number}{9E}}}}2
+    {\{}{{\CodeSymbol{\{}}}1
+    {\}}{{\CodeSymbol{\}}}}1
+    {(}{{\CodeSymbol{(}}}1
+    {)}{{\CodeSymbol{)}}}1
+    {[}{{\CodeSymbol{[}}}1
+    {]}{{\CodeSymbol{]}}}1
+    {>}{{\CodeSymbol{$>$}}}1
+    {<}{{\CodeSymbol{$<$}}}1
+    {=}{{\CodeSymbol{$=$}}}1
+    {;}{{\CodeSymbol{$;$}}}1
+    {,}{{\CodeSymbol{$,$}}}1
+    {*}{{\CodeSymbol{$*$}}}1
+    {+}{{\CodeSymbol{$+$}}}1
+    {-}{{\CodeSymbol{$-$}}}1
+    {!}{{\CodeSymbol{!}}}1
+    {\&}{{\CodeSymbol{\&}}}1,
+    moredelim=[s][\textcolor{character}]{'}{'}
+}
+
+
+
+\begin{document}
+
+In this document, you will find a few C program listings rendered with the color scheme used in the Code::Blocks IDE.
+\vspace*{1cm}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+int main(void) {
+    double x, y, wortel, macht;
+    int i;
+    printf("Voer een positief getal x in: ");
+    scanf("%lf", &x);
+    printf("Voer een getal y in: ");
+    scanf("%lf", &y);
+    for (i = 0; i < 5; i = i + 1) {
+        wortel = sqrt(x);
+        macht = pow(x, y);
+        printf("De vierkantswortel uit %f is: %f\n", x, wortel);
+        printf("%f tot de macht %f is: %f\n", x, y, macht);
+        x = x + 1;
+    }
+    fflush(stdin);
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void){
+    int cijfer;
+    char letter;
+    do {
+        printf("Geef je cijfer: ");
+        scanf("%d", &cijfer);
+    } while (cijfer < 0 || cijfer > 10);
+    switch (cijfer) {
+        case 10:
+        case 9:
+        case 8:
+            letter = 'A'; break;
+        case 7: 
+            letter = 'B'; break;
+        case 6: 
+            letter = 'C'; break;
+        case 5:
+            letter = 'D'; break;
+        default:
+            letter = 'F'; break;
+    }
+    printf("Dit komt overeen met een %c.\n", letter);
+    fflush(stdin);
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int fib(int n) {
+    if (n < 2) {
+        return n;
+	}
+	else {
+	  return fib(n-1) + fib(n-2);
+	}
+} 
+
+int main(void) {
+    int getal;
+
+    do {
+        printf("Geef een getal groter dan of gelijk aan 0: ");
+        scanf("%d", &getal);
+    } while (getal < 0);
+
+    printf("fib(%d) is %d\n", getal, fib(getal));
+
+    printf("Druk op enter om het programma af te sluiten.");
+    fflush(stdin);
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+/* Dit programma demonstreert hoe een
+   groot getal cijfer voor cijfer kan
+   worden ingelezen */
+
+int leesCijfer(void) {
+    switch (getchar()) {
+        case '0': return 0;
+        case '1': return 1;
+        case '2': return 2;
+        case '3': return 3;
+        case '4': return 4;
+        case '5': return 5;
+        case '6': return 6;
+        case '7': return 7;
+        case '8': return 8;
+        case '9': return 9;
+        default: return -1;
+    }
+}
+
+int main(void) {
+    int cijfer;
+    printf("Type een groot getal:\n");
+    do {
+        cijfer = leesCijfer();
+        if (cijfer != -1) {
+            printf("%d ", cijfer);
+        }
+    } while (cijfer != -1);
+    
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+#define AANTAL 10
+
+int main(void) {
+    double temperatuur[AANTAL];
+    int i;
+    double temp_acc;
+
+    for (i = 0; i < AANTAL; i = i + 1) {
+        do {
+            printf("Geef temperatuur %d op: ", i + 1);
+            fflush(stdin);
+        } while (scanf("%lf", &temperatuur[i]) != 1);
+    }
+
+    temp_acc = 0.0;
+    for (i = 0; i < AANTAL; i = i + 1) {
+        temp_acc = temp_acc + temperatuur[i];
+    }
+
+    printf("De gemiddelde temperatuur is %.2f\n\n", temp_acc / AANTAL);
+
+    printf("Druk op enter om het programma af te sluiten.");
+    fflush(stdin);
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <malloc.h>
+
+int main(void) {
+
+	char *ptr = malloc(1024);  /* Allocate 1024 bytes */
+
+	if (ptr == NULL) {
+		printf("Oops, no memory!\n");
+		exit(-2);
+	}
+
+	printf("Allocated 1024 bytes at address %p\n", ptr);
+
+	free(ptr); /* Free memory */
+
+	return 0;
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}
+	char *ptrnew;
+
+	ptrnew = realloc(ptr, 2048);
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+/* myprog.c */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+
+    int i;
+
+    printf("\nAantal argumenten: %d\n\n", argc);
+    for (i = 0; i<argc; i++) {
+        printf("Argument %d: %s\n", i, argv[i]);
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\end{document}
