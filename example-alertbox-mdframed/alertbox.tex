@@ -1,0 +1,91 @@
+
+%%
+%% WORK IN PROGRESS !!!!
+%%
+
+
+\documentclass[a4paper,12pt]{article}
+
+%% Helper packages
+\usepackage{showframe}
+\usepackage{parskip}
+\usepackage{charter}
+\usepackage{xcolor}
+
+%% For creating alert box
+\usepackage[framemethod=tikz]{mdframed}
+%% For the "hand"
+\usepackage{dingbat}
+%% The D.E. Knuth danger sign \dbend
+\usepackage{manfnt}
+
+
+\newcommand{\alertboxtop}[2][\leftpointright]{%
+\begin{mdframed}[outerlinewidth = 1,%
+roundcorner = 4 pt,%
+leftmargin = 40pt,%
+rightmargin = 40pt,%
+backgroundcolor = yellow!40,%
+outerlinecolor = red!70!black,%
+innertopmargin = 0.5\topskip,%
+innerbottommargin = 0.5\topskip,%
+skipabove = 1ex,%
+skipbelow = 1ex,%
+]
+\begin{minipage}[t]{0.15\textwidth}
+%\vspace*{0pt}\Large\leftpointright
+\vspace*{0pt}\Large#1
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.8\textwidth}
+#2
+\end{minipage}
+\end{mdframed}
+}
+
+\newcommand{\alertboxcenter}[2][\leftpointright]{%
+\begin{mdframed}[outerlinewidth = 1,%
+roundcorner = 4 pt,%
+leftmargin = 40pt,%
+rightmargin = 40pt,%
+backgroundcolor = yellow!40,%
+outerlinecolor = red!70!black,%
+innertopmargin = 0.5\topskip,%
+innerbottommargin = 0.5\topskip,%
+skipabove = 1ex,%
+skipbelow = 1ex,%
+]
+\begin{minipage}[c]{0.15\textwidth}%
+\Large#1%
+\end{minipage}\hfill%
+\begin{minipage}[c]{0.8\textwidth}%
+#2%
+\end{minipage}
+\end{mdframed}
+}
+
+\newcommand{\sometext}{Well, this is some text that 
+    should be typeset into the alert box as shown here.
+    On the left you see the alert sign, which is 
+    configurable. To use Knuth's danger sign, load
+    the \texttt{manfnt} package and use 
+    \texttt{\textbackslash dbend} as optional
+    parameter. To use a left hand pointing right, use
+    the \texttt{dingbat} package and use
+    \texttt{\textbackslash leftpointright}.}
+    
+\begin{document}
+A demonstration of some alert boxes created with \texttt{mdframed}.
+
+\vfill
+
+\alertboxtop{\sometext}
+
+\alertboxcenter{\sometext}
+
+\alertboxtop[\LARGE\dbend]{\sometext}
+
+\alertboxcenter[\centering\fontsize{60}{60}\selectfont\color{red}!]{\sometext}
+
+\vfill
+
+\end{document}
