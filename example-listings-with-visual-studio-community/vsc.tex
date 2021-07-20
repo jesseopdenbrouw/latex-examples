@@ -1,0 +1,479 @@
+\documentclass[a4paper,12pt]{article}
+
+% Helper packages, at your convenience
+\usepackage{parskip}
+\usepackage{charter}
+\usepackage{nimbusmono}
+\usepackage[margin=2cm,top=3cm,bottom=3cm]{geometry}
+
+%% Use xcolor
+\usepackage{xcolor}
+%% Use textcomp for upright quotes in listings
+\usepackage{textcomp}
+%% Use computer code listings
+\usepackage{listings}
+\makeatletter
+%% Replace \char32 with U-form vrule/hrule to match the tab char
+%\AtBeginDocument{%
+%\def\lst@visiblespace{\kern.06em\hbox{\vrule\@height.3ex}%
+%                      \hrulefill\hbox{\vrule\@height.3ex}}}
+%\makeatother
+
+% Colors used in VS community listings, standard
+\definecolor{comment}{RGB}{0,128,0}
+\definecolor{controlkeyword}{RGB}{143,8,106}
+\definecolor{otherkeyword}{RGB}{0,0,255}
+% numbers are not colorized
+%\definecolor{number}{RGB}{240,0,240}
+\definecolor{character}{RGB}{163,21,21}
+\definecolor{string}{RGB}{163,21,21}
+\definecolor{preprocessor}{RGB}{128,128,128}
+\definecolor{function}{RGB}{116,83,31}
+\definecolor{usertype}{RGB}{43,145,175}
+\definecolor{macro}{RGB}{138,27,255}
+\definecolor{identifier}{RGB}{31,55,127}
+
+%% Define listing style for C, Visual Studio Community 2019 style
+\lstset{%
+  %% Basic setup
+  language=[ANSI]C,
+  basicstyle=\small\ttfamily,
+  stringstyle=\color{string},
+  commentstyle=\color{comment},
+  identifierstyle=\color{black},
+  directivestyle=\color{preprocessor},
+  % keywordstyle see below
+  %% Line numbers
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,                           
+  numbersep=8pt,
+  %% Showing spaces, tabs et al.
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  %% Lines above and below
+  frame=lines,
+  rulecolor=\color{black},
+  %% Misc other stuff
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  title=\lstname,
+%  prebreak=\mbox{\textcolor{red}{$\hookleftarrow$}\space},
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  upquote=true,
+%  aboveskip=2.5ex,
+%  belowskip=-2.2ex,
+  escapeinside={(*@}{@*)},
+  moredelim=[s][\textcolor{character}]{'}{'},
+  %% Control keywords, remove the declaration keywords
+  deletekeywords={int,char,void,double,static,const,unsigned,signed,volatile,auto,extern,typedef,enum,long,struct,short,register,union,float,sizeof},
+  keywordstyle=\color{controlkeyword},
+  %% Declaration keywords
+  keywords=[2]{int,char,void,double,static,const,unsigned,signed,volatile,auto,extern,typedef,enum,long,struct,short,register,union,float,sizeof},
+  keywordstyle=[2]{\color{otherkeyword}},
+  %% Trick: functions
+  keywords=[3]{main,fopen,freopen,fflush,fclose,remove,rename,tmpfile,tmpnam,setvbuf,setbuf,fprintf,printf,sprintf,snprintf,vprintf,vfprintf,vsprintf,fscanf,scanf,sscanf,fgetc,fgets,fputc,fputs,getc,getchar,gets,putc,putchar,puts,ungetc,fread,fwrite,fseek,ftell,rewind,fgetpos,fsetpos,clearerr,feof,ferror,perror,isalnum,isalpha,iscntrl,isdigit,isgraph,islower,isprint,ispunct,isspace,isupper,isxdigit,toupper,tolower,strcpy,strncpy,strcat,strncat,strcmp,strncmp,strchr,strrchr,strspn,strcspn,strpbrk,strstr,strlen,strerror,strtok,memcpy,memmove,memcmp,memchr,memset,sin,cos,tan,asin,acos,atan,atan2,sinh,cosh,tanh,exp,log,log10,pow,sqrt,ceil,floor,fabs,ldexp,frexp,modf,fmod,atof,atoi,atol,strtod,strtol,strtoul,rand,srand,calloc,malloc,realloc,free,abort,exit,atexit,system,getenv,bsearch,qsort,abs,labs,div,ldiv,assert,va_start,va_arg,va_end,setjmp,longjmp,signal,raise,clock,time,difftime,mktime,asctime,gmtime,localtime,strftime,erf,erfc,gamma,hypot,fileno,isascii,strcasecmp,strncasecmp,toascii,va_copy},
+  keywordstyle=[3]{\color{function}},
+  %% Trick: system header files, the < and > are not colorized
+  alsoletter={.},
+  keywords=[4]{assert.h,complex.h,ctype.h,errno.h,fenv.h,float.h,inttypes.h,iso646.h,limits.h,locale.h,math.h,setjmp.h,signal.h,stdalign.h,stdarg.h,stdatomic.h,stdbool.h,stddef.h,stdint.h,stdio.h,stdlib.h,stdnoreturn.h,string.h,tgmath.h,threads.h,time.h,uchar.h,wchar.h,wctype.h},
+  keywordstyle=[4]{\color{string}},
+  %% System defined type, short list from stdint.h
+  keywords=[5]{int8_t,int16_t,int32_t,int64_t,uint8_t,uint16_t,uint32_t,uint64_t,FILE,size_t,div_t,ldiv_t,va_list,clock_t,time_t},
+  keywordstyle=[5]{\color{usertype}},
+  %% Some known macros
+  keywords=[6]{NULL,_MSC_VER,__FILE__,__LINE__,__DATE__,__STDC__,__cplusplus,__COUNTER__,EOF},
+  keywordstyle=[6]{\color{macro}},
+  %%
+  %% Trick: user defined functions. Really, should be done by some simple macro...
+  keywordstyle=[10]{\color{function}},
+  %% Trick: user defined typedef. Really, should be done by some simple macro...
+  keywordstyle=[11]{\color{usertype}},
+  %% Trick: user defined macros. Really, should be done by some simple macro...
+  keywordstyle=[12]{\color{macro}},
+  %% Trick: extra system header files. Really, should be done by some simple macro...
+  keywordstyle=[13]{\color{string}},
+%  %%Not-so-nice Trick: preprocessor commands.
+%  literate=*{\#include}{{\textcolor{preprocessor}{\#include}}}8
+%            {\#define}{{\textcolor{preprocessor}{\#define}}}7
+%            {\#undef}{{\textcolor{preprocessor}{\#undef}}}6
+%            {\#if}{{\textcolor{preprocessor}{\#if}}}3
+%            {\#ifdef}{{\textcolor{preprocessor}{\#ifdef}}}6
+%            {\#ifndef}{{\textcolor{preprocessor}{\#ifndef}}}7
+%            {\#else}{{\textcolor{preprocessor}{\#else}}}5
+%            {\#elif}{{\textcolor{preprocessor}{\#elif}}}5
+%            {\#endif}{{\textcolor{preprocessor}{\#endif}}}6
+%            {\#pragma}{{\textcolor{preprocessor}{\#pragma}}}7
+%            {\#error}{{\textcolor{preprocessor}{\#error}}}6,
+}
+
+%% Set the extra <whatever> to colors...
+\lstset{
+  keywords=[10]{},  % User functions
+  keywords=[11]{},  % Typedef'd types
+  keywords=[12]{},  % Macros
+  keywords=[13]{},  % System header files
+}
+
+
+
+\begin{document}
+
+
+
+
+In this document, you will find a few C program listings rendered with the color scheme used in the Visual Studio Community 2019 IDE. Well, more or less. Not every coloring is possible. Note that C++ is not covered.
+
+For example, local variables, parameters and arguments are not colorized (i.e. black) because \texttt{listings} does no compiler parsing and does not know when to use coloring. (We could have used identifier styling, but that would affect all of the above.) Function names are partly colorized, only for most functions from the standard library. You can add your own function names using:
+
+\begin{lstlisting}[language=TeX,aboveskip=2ex,caption=,belowskip=0ex]
+keywords=[10]{(*@\rmfamily\itshape your\_function\_names\_as\_a\_comma\_separated\_list@*)}
+\end{lstlisting}
+
+(Really, we should do this by defining a simple control sequence and expand it in the listing setup.)
+Also, typedef'd types are not colorized except for the common ones in \texttt{stdint.h} and some frequently used typedef such as \lstinline|FILE|, \lstinline|size_t|, \lstinline|time_t| and \lstinline|clock_t|. You can add your own typedefs using:
+
+\begin{lstlisting}[language=TeX,aboveskip=2ex,caption=,belowskip=0ex]
+keywords=[11]{(*@\rmfamily\itshape your\_typedefs\_as\_a\_comma\_separated\_list@*)}
+\end{lstlisting}
+
+Macro names are partly supported for some known macro such as \lstinline|NULL| and \lstinline|_MSC_VER|. You can add your own macro names using:
+
+\begin{lstlisting}[language=TeX,aboveskip=2ex,caption=,belowskip=0ex]
+keywords=[12]{(*@\rmfamily\itshape your\_macros\_as\_a\_comma\_separated\_list@*)}
+\end{lstlisting}
+
+If you want to add extra system header files, use:
+
+\begin{lstlisting}[language=TeX,aboveskip=2ex,caption=,belowskip=0ex]
+keywords=[13]{(*@\rmfamily\itshape your\_extra\_system\_header\_files\_as\_a\_comma\_separated\_list@*)}
+\end{lstlisting}
+
+
+Escape sequences such as \lstinline|\n| are not colorized, but should be. We have to find out if we can parse string contents.
+
+The string of characters after a preprocessor pragma are not colorized.
+
+The \lstinline|<| and \lstinline|>| in header file inclusion are not colorized. Then we have to use more delimiters but that messes up tests as in: \lstinline|if (a < b)|.
+
+The quote for characters and double quotes for strings are colorized the same as the string.
+
+Line breaks in listings are shown by the \textcolor{red}{$\hookrightarrow$} symbol on the continuing line.
+
+
+%% Test
+%\begin{lstlisting}
+%div(90), malloc(90), EOF, __COUNTER__, __STDC__, time_t, size_t
+%\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <math.h>
+
+int main(void) {
+    double x, y, wortel, macht;
+    int i;
+    printf("Voer een positief getal x in: ");
+    scanf("%lf", &x);
+    printf("Voer een getal y in: ");
+    scanf("%lf", &y);
+    for (i = 0; i < 5; i = i + 1) {
+        wortel = sqrt(x);
+        macht = pow(x, y);
+        printf("De vierkantswortel uit %f is: %f\n", x, wortel);
+        printf("%f tot de macht %f is: %f\n", x, y, macht);
+        x = x + 1;
+    }
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void){
+    int cijfer;
+    char letter;
+    do {
+        printf("Geef je cijfer: ");
+        scanf("%d", &cijfer);
+    } while (cijfer < 0 || cijfer > 10);
+    switch (cijfer) {
+        case 10:
+        case 9:
+        case 8:
+            letter = 'A'; break;
+        case 7: 
+            letter = 'B'; break;
+        case 6: 
+            letter = 'C'; break;
+        case 5:
+            letter = 'D'; break;
+        default:
+            letter = 'F'; break;
+    }
+    printf("Dit komt overeen met een %c.\n", letter);
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int fib(int n) {
+    if (n < 2) {
+        return n;
+	}
+	else {
+	  return fib(n-1) + fib(n-2);
+	}
+} 
+
+int main(void) {
+    int getal;
+
+    do {
+        printf("Geef een getal groter dan of gelijk aan 0: ");
+        scanf("%d", &getal);
+    } while (getal < 0);
+
+    printf("fib(%d) is %d\n", getal, fib(getal));
+
+    printf("Druk op enter om het programma af te sluiten.");
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+/* Dit programma demonstreert hoe een
+   groot getal cijfer voor cijfer kan
+   worden ingelezen */
+
+int leesCijfer(void) {
+    switch (getchar()) {
+        case '0': return 0;
+        case '1': return 1;
+        case '2': return 2;
+        case '3': return 3;
+        case '4': return 4;
+        case '5': return 5;
+        case '6': return 6;
+        case '7': return 7;
+        case '8': return 8;
+        case '9': return 9;
+        default: return -1;
+    }
+}
+
+int main(void) {
+    int cijfer;
+    printf("Type een groot getal:\n");
+    do {
+        cijfer = leesCijfer();
+        if (cijfer != -1) {
+            printf("%d ", cijfer);
+        }
+    } while (cijfer != -1);
+    
+    printf("Druk op enter om het programma af te sluiten.");
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+
+#define AANTAL 10
+
+int main(void) {
+    double temperatuur[AANTAL];
+    int i;
+    double temp_acc;
+
+    for (i = 0; i < AANTAL; i = i + 1) {
+        do {
+            printf("Geef temperatuur %d op: ", i + 1);
+            fflush(stdin); // Oofff....
+        } while (scanf("%lf", &temperatuur[i]) != 1);
+    }
+
+    temp_acc = 0.0;
+    for (i = 0; i < AANTAL; i = i + 1) {
+        temp_acc = temp_acc + temperatuur[i];
+    }
+
+    printf("De gemiddelde temperatuur is %.2f\n\n", temp_acc / AANTAL);
+
+    printf("Druk op enter om het programma af te sluiten.");
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <malloc.h>
+
+int main(void) {
+
+	char *ptr = malloc(1024);  /* Allocate 1024 bytes */
+
+	if (ptr == NULL) {
+		printf("Oops, no memory!\n");
+		exit(-2);
+	}
+
+	printf("Allocated 1024 bytes at address %p\n", ptr);
+
+	free(ptr); /* Free memory */
+
+    printf("Druk op enter om het programma af te sluiten.");
+    getchar();
+	return 0;
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}
+	char *ptrnew;
+
+	ptrnew = realloc(ptr, 2048);
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+/* myprog.c */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+
+    int i;
+
+    printf("\nAantal argumenten: %d\n\n", argc);
+    for (i = 0; i<argc; i++) {
+        printf("Argument %d: %s\n", i, argv[i]);
+    }
+
+    printf("Druk op enter om het programma af te sluiten.");
+    getchar();
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[numbers=right,{morekeywords=[11]{artikel,myenum,myenum_t}}]
+struct artikel {
+	int nummer;      // artikelnummer
+	char naam[20];   // artikelnaam
+	int aantal;      // aantal beschikbaar
+	double prijs;    // prijs per stuk
+};
+
+enum myenum {A, B, C};
+
+typedef enum {A, B, C} myenum_t;
+\end{lstlisting}
+
+
+This listing is typeset with (note the extra pair of braces):
+
+{\small
+\begin{verbatim}
+\begin{lstlisting}[numbers=right,{morekeywords=[11]{artikel,myenum,myenum_t}}]
+struct artikel {
+	int nummer;      // artikelnummer
+	char naam[20];   // artikelnaam
+	int aantal;      // aantal beschikbaar
+	double prijs;    // prijs per stuk
+};
+
+enum myenum {A, B, C};
+
+typedef enum {A, B, C} myenum_t;
+\end{lstlisting}
+\end{verbatim}
+}
+\newpage
+
+\begin{lstlisting}[numbers=left]
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#pragma warning(disable : 4996)
+
+int main(int argc, char *argv[]) {
+
+    /* The input and output file handlers */
+    FILE *infile, *outfile;
+
+    /* Character to read and character count */
+    int ch, count = 0;
+
+    /* We need exactly 3 arguments */
+    if (argc != 3) {
+        printf("Usage: %s infile outfile\n", argv[0]);
+        return -1;
+    }
+
+    /* Test if input file and output file have the same name */
+    if (strcmp(argv[1], argv[2]) == 0) {
+        printf("Filenames cannot be the same\n");
+        return -2;
+    }
+
+    /* Open the input file, exit if error */
+    infile = fopen(argv[1], "rb");
+    if (infile == NULL) {
+        printf("Cannot open input file %s\n", argv[1]);
+        return -3;
+    }
+
+    /* Open the output file, exit if error */
+    outfile = fopen(argv[2], "wb");
+    if (outfile == NULL) {
+        printf("Cannot open output file %s\n", argv[2]);
+        fclose(infile);
+        return -4;
+    }
+
+    /* Copy characters from input file to output file */
+    while ((ch = fgetc(infile)) != EOF) {
+        count++;
+        fprintf(outfile, "%c", ch);
+    }
+
+    printf("Copied %d characters\n", count);
+
+    fclose(infile);
+    fclose(outfile);
+
+    return 0;
+}
+\end{lstlisting}
+
+\end{document}
