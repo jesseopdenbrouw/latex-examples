@@ -1,0 +1,34 @@
+%%
+%% Switching algebra in LaTeX
+%%
+\documentclass[a4paper]{article}
+
+\makeatletter
+%% Binary and2, or2, not, use x's to trap errors
+\def\band(#1,#2){\ifcase#1#2 0\or 0\or x\or x\or x\or x\or x\or x\or x\or x\or 0\or 1\else x\fi}
+%\def\bor(#1,#2){\ifcase#1#2 0\or 1\or x\or x\or x\or x\or x\or x\or x\or x\or 1\or 1\else x\fi}
+\def\bnot(#1){\edef\@tempa{#1}\ifcase\@tempa 1\or 0\else x\fi}
+\makeatother
+
+\begin{document}
+%\band(0,0)
+%\band(0,1)
+%\band(1,0)
+\band(1,1)
+%
+%\bor(1,\band(0,0))
+%
+%\edef\x{\band(0,0)}
+%\bor(1,\x)
+%\bnot(\band(1,1))
+%\edef\xxx{\band(1,1)}
+%\xxx
+%
+%@\bnot(\xxx)
+%
+%\edef\yyy{\bor(1,0)}
+%\yyy
+%
+%\bor(\yyy,\xxx)
+%%
+\end{document}
