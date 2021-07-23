@@ -2,11 +2,13 @@
 
 \documentclass[a4paper,12pt]{article}
 
+%% Helper packages
 \usepackage{kantlipsum}
 \usepackage{parskip}
+\usepackage{mathtools}
 
 %% Find out what engine we're running...
-\usepackage{ifluatex,ifxetex}
+\usepackage{iftex}
 
 %% Settings for fonts et al.
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi>0
@@ -28,11 +30,12 @@
 \usepackage{nimbusmono}
 %\usepackage{charter}
 \usepackage[bitstream-charter]{mathdesign}
-%% Use microtype
-\usepackage[stretch=10]{microtype}
 %% Set input encoding to UTF-8
 \usepackage[utf8]{inputenc}
 \fi
+
+%% Use microtype
+\usepackage[stretch=10]{microtype}
 
 \begin{document}
 
