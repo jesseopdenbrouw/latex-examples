@@ -1,0 +1,38 @@
+\documentclass[a4paper]{book}
+
+%% For widthof
+\usepackage{calc}
+\usepackage{kantlipsum}
+
+%% Enumerate items
+\usepackage{enumitem}
+%% Use an asterisk before item number, see
+%% http://tex.stackexchange.com/questions/61263/add-an-asterisk-left-of-an-enumerate
+\setlist[enumerate]{before=\setupmodenumerate}
+
+%% Create a new \item... to typeset a * in front of the question number
+\newif\ifmoditem
+\newcommand{\setupmodenumerate}{%
+  \global\moditemfalse
+  \let\origmakelabel\makelabel
+  \def\moditem##1{\global\moditemtrue\def\mesymbol{##1}\item}%
+  \def\makelabel##1{%
+    \origmakelabel{\ifmoditem\llap{\mesymbol\ }\fi##1}%
+    \global\moditemfalse}%
+}
+\newcommand{\itemstar}{\moditem{\textbf{*}}}
+
+\begin{document}
+
+\chapter{Conundrums}
+
+\kant[1]
+
+\section{Questions}
+
+\begin{enumerate}[labelindent=0pt,labelwidth=\widthof{88.8.\ },label=\textbf{\thechapter.\arabic*.},leftmargin=!,ref=\thechapter.\arabic*]
+%\begin{enumerate}
+\item Easy question.
+\itemstar Difficult question.
+\end{enumerate}
+\end{document}
