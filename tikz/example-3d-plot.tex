@@ -12,9 +12,9 @@
         \begin{axis}[colorbar,title={$\exp(-x^2-y^2)$},]
         
             % Plot e^(-x^2-y^2) in 3D
-            % No more than 66 samples, otherwise TeX will run out of memory
+            % No more than 61 samples, otherwise TeX will run out of memory
             % This plot takes a long running time
-            \addplot3[surf,shader=faceted interp,samples=66] {exp(-x^2-y^2)};
+            \addplot3[surf,shader=faceted interp,samples=61,domain=-2:2] {exp(-x^2-y^2)};
         
         \end{axis}
 
