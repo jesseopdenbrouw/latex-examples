@@ -1,0 +1,76 @@
+\documentclass[a4paper]{article}
+
+\usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+
+\author{Jesse E.\@ J.\@ op den Brouw\thanks{\sffamily J.E.J.opdenBrouw@hhs.nl}}
+\title{Some graphs of an NTC resistor}
+\date{\today}
+
+\begin{document}
+\maketitle
+\vspace*{2cm}
+\begin{abstract}
+This document shows some interesting graph of the parameters of the Betatherm 10K3A542I NTC thermistor.
+See {\sffamily http://www.farnell.com/datasheets/69441.pdf?\_ga=1.32882430.1374476496.1461826737}
+\end{abstract}
+\newpage
+
+The graph in Figure~\ref{fig1} shows the resistance of the NTC versus the temperature. Note that the temperature is in degrees Celsius. Also note that the resistance is heavy non-linear.
+
+\begin{figure}[!ht]
+\begin{tikzpicture}
+\begin{axis}[
+    width=15cm,
+    height=7cm,
+    title=Resistance vs.\@ temparature.,
+    xlabel=Temperature / \si{\degreeCelsius},
+    ylabel=Resistance / \si{\ohm},
+    skip coords between index={0}{40}
+    ]
+\addplot table [x index={0},y index={1}, mark=none] {GegevensBetatherm10K3A542I.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Resistance versus temperature of an NTC resistor.}
+\label{fig1}
+\end{figure}
+
+The graph in Figure~\ref{fig2} shows the \emph{natural logarithm} of the resistance versus the \emph{inverted} temperature, so the following formula applies: $\ln R = f(1/T)$. Note that this graph shows an \emph{almost} straight line
+
+\begin{figure}[!ht]
+\begin{tikzpicture}
+\begin{axis}[
+    width=15cm,
+    height=7cm,
+    title=Natural logarithm of resistance vs.\@ inverted temparature.,
+    xlabel=Inverted temperature / \si{\per\kelvin},
+    ylabel=Nat.\@ log.\@ Resistance / $\ln$ \si{\ohm}
+    ]
+    \addplot table [x index={2},y index={3}, mark=none] {GegevensBetatherm10K3A542I.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Natural logarithm of the resistance versus the inverted temperature of an NTC resistor.}
+\label{fig2}
+\end{figure}
+
+An important parameter of an NTC resistor is the beta coefficient. One take this coefficient as a constant, but the graph in Figure~\ref{fig3} clearly shows that this is \emph{not} the case.
+
+\begin{figure}[!ht]
+\begin{tikzpicture}
+\begin{axis}[
+    width=15cm,
+    height=7cm,
+    title=Beta coefficient versus temperature.,
+    xlabel=Temparature / \si{\degreeCelsius}
+    ylabel=Beta coeffient / \si{\kelvin},
+    ]
+    \addplot table [x index={0},y index={6}, mark=none, smooth] {GegevensBetatherm10K3A542I.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Beta coefficient versus the temperature of an NTC resistor.}
+\label{fig3}
+\end{figure}
+
+\end{document}
