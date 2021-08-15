@@ -1,0 +1,131 @@
+%%
+%% Boolean algebra
+%%
+%% See https://tex.stackexchange.com/questions/610463/switching-algebra
+%%
+
+
+\documentclass[a4paper]{article}
+
+%% Define AND, OR and NOT
+\makeatletter
+
+%% AND
+\def\band#1{\@band#1\relax}
+\def\@band#1,#2\relax{\ifnum#1=0 0\else\ifnum#2=0 0\else 1\fi\fi}
+%% OR
+\def\bor#1{\@bor#1\relax}
+\def\@bor#1,#2\relax{\ifnum#1=1 1\else\ifnum#2=1 1\else 0\fi\fi}
+%% NOT
+\def\bnot#1{\@bnot#1\relax}
+\def\@bnot#1\relax{\ifnum#1=1 0\else 1\fi}
+
+%% NAND
+\def\bnand#1{\@bnand#1\relax}
+\def\@bnand#1,#2\relax{\@bnot{\@band#1,#2\relax}\relax}
+%% NOR
+\def\bnor#1{\@bnor#1\relax}
+\def\@bnor#1,#2\relax{\@bnot{\@bor#1,#2\relax}\relax}
+
+%% XOR (EXOR)
+\def\bxor#1{\@bxor#1\relax}
+\def\@bxor#1,#2\relax{%
+\ifnum#1=0
+  \ifnum#2=0
+    0%
+  \else
+    1%
+  \fi
+\else
+  \ifnum#2=1
+    0%
+  \else
+    1%
+  \fi
+\fi}
+
+%% XNOR (EXNOR)
+\def\bxnor#1{\@bxnor#1\relax}
+\def\@bxnor#1,#2\relax{\@bnot{\@bxor#1,#2\relax}\relax}
+
+\makeatother
+
+
+%% An environment to typeset switching algebra
+%% Temporary assigns `(' and `)' as TeX grouping characters
+\newenvironment{logic}{\catcode`\(=1\catcode`\)=2 }{}
+
+
+\begin{document}
+
+\begin{logic}
+
+AND:
+\band(0,0)
+\band(0,1)
+\band(1,0)
+\band(1,1)
+
+OR:
+\bor(0,0)
+\bor(0,1)
+\bor(1,0)
+\bor(1,1)
+
+NOT:
+\bnot(0)
+\bnot(1)
+
+NAND:
+\bnot(\band(0,0))
+\bnot(\band(0,1))
+\bnot(\band(1,0))
+\bnot(\band(1,1))
+
+NOR:
+\bnot(\bor(0,0))
+\bnot(\bor(0,1))
+\bnot(\bor(1,0))
+\bnot(\bor(1,1))
+ 
+Buffer:
+\bnot(\bnot(0))
+\bnot(\bnot(1))
+
+NAND:
+\bnand(0,0)
+\bnand(0,1)
+\bnand(1,0)
+\bnand(1,1)
+
+NOR:
+\bnor(0,0)
+\bnor(0,1)
+\bnor(1,0)
+\bnor(1,1)
+
+XOR:
+\bxor(0,0)
+\bxor(0,1)
+\bxor(1,0)
+\bxor(1,1)
+
+XOR3:
+\bxor(0,\bxor(0,0))
+\bxor(0,\bxor(0,1))
+\bxor(0,\bxor(1,0))
+\bxor(0,\bxor(1,1))
+\bxor(1,\bxor(0,0))
+\bxor(1,\bxor(0,1))
+\bxor(1,\bxor(1,0))
+\bxor(1,\bxor(1,1))
+
+XNOR:
+\bxnor(0,0)
+\bxnor(0,1)
+\bxnor(1,0)
+\bxnor(1,1)
+
+\end{logic}
+
+\end{document}
