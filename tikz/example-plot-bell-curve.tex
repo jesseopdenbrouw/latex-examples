@@ -17,7 +17,7 @@
 \addplot [blue, mark=none, samples=301, name path=f,domain=-4:4] { exp(-x^2) };
 
 %% Just a path over the x axis
-\path[name path=xaxis] (axis cs:-1,0) -- (axis cs:1,0);
+\path[name path=xaxis] (axis cs:-4,0) -- (axis cs:4,0);
 
 %% Fill the area between x axis and bell curve, from x = -1 to x = 1 (1 sigma)
 \addplot [thick, fill=red, fill opacity=0.25]
