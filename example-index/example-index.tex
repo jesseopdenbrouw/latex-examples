@@ -18,13 +18,28 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
-\usepackage{makeidx}
 
-\makeindex
+%% Indexing package
+\usepackage{imakeidx}
+% Add some text after the index title!
+\indexprologue[\vspace*{36pt}]{This is the index.}
+% Or you can apply another font size!
+\indexsetup{
+othercode=\footnotesize,
+}
+
+% Make the index and add a line to the TOC
+\makeindex[intoc]
+
+%% Three-column index
+%\makeindex[intoc,columns=3]
 
 \begin{document}
 
-Some text.\index{Apple}\index{Apricot}\index{Avocado}\index{Banana}
+Some text. Note: upper case and lower case letter are different.
+
+% Plain indexing
+\index{Banana}
 \index{Bilberry}\index{Blackberry}\index{Blackcurrant}\index{Blueberry}
 \index{Currant}\index{Cherry}\index{Cherimoya}\index{Clementine}
 \index{Date}\index{Damson}\index{Dragonfruit}\index{Durian}
@@ -38,7 +53,28 @@ Some text.\index{Apple}\index{Apricot}\index{Avocado}\index{Banana}
 \index{Rambutan}\index{Redcurrant}\index{Salal berry}\index{Satsuma}
 \index{Star fruit}\index{Strawberry}\index{Tangerine}\index{Tomato}
 \index{Ugli fruit}\index{Watermelon}\index{Ziziphus mauritiana}
-\index{>>}\index{>}\index{\&}\index{\_}
+
+% Sub item
+\index{Apple!Reaburn}
+
+% Reference to see another entry
+\index{Ananas|see{Pineapple}}
+
+% For use in programming languages
+\index{>}\index{{>}{>}}\index{\&}\index{\_}
+\index{\&\&}\index{"|}\index{"|"|}
+\index{\^{}}
+\index{""}
+
+% Entries with accents
+\index{Ecole@\'{E}cole}
+
+% With boldface page number
+\index{Avocado|textbf}
+
+% With italice page number
+\index{Apricot|emph}
+
 \printindex
 
 \end{document}
