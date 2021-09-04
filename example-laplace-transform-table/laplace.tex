@@ -61,7 +61,7 @@ f(0^+) = \lim_{s \rightarrow \infty} sF(s)
 %
 Final value theorem:
 \begin{equation*}
-f(\infty) = \lim_{s \rightarrow \infty} sF(s)
+f(\infty) = \lim_{s \rightarrow 0} sF(s)
 \end{equation*}
 %
 if all poles of $sF(s)$ are in the left half-plane.
@@ -91,7 +91,7 @@ Cosine & $\cos(\omega t)$ & $\dfrac{s}{s^2 + \omega^2}$ & $\Re(s)>0$ \\
 Hyperbolic sine & $\sinh(\alpha t)$ & $\dfrac{\alpha}{s^2-\alpha^2}$ & $\Re(s)> |\alpha|$ \\
 Hyperbolic cosine & $\cos(\alpha t)$ & $\dfrac{s}{s^2-\alpha^2}$ & $\Re(s)> |\alpha|$ \\
 Exponential decay sine & $\me^{-at}\sin(\omega t)$ & $\dfrac{\omega}{(s+a)^2 + \omega^2}$ & $\Re(s)>-a$ \\
-Exponential decay cosine & $\me^{-at}\sin(\omega t)$ & $\dfrac{s+a}{(s+a)^2 + \omega^2}$ & $\Re(s)>-a$ \\
+Exponential decay cosine & $\me^{-at}\cos(\omega t)$ & $\dfrac{s+a}{(s+a)^2 + \omega^2}$ & $\Re(s)>-a$ \\
 $n$th root & $\sqrt[n]{t}$ & $\dfrac{1}{s^{\frac{1}{n}+1}}\Gamma\left(\frac{1}{n}+1\right)$ & $\Re(s)>0$ \\
 Natural logarithm & $\ln t$ & $\dfrac{-\ln (s) -\gamma}{s}$ & $\Re(s)>0$ \\
 \bottomrule
