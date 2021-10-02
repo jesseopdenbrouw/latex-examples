@@ -7,14 +7,16 @@
 
 \begin{document}
 
-\begin{tikzpicture}
+\begin{tikzpicture}[
+  declare function = { bell(\x) = exp(-\x^2); }
+  ]
 
 \begin{axis}[
     width=15cm,
     height=7cm]
 
 %% Plot bell curve
-\addplot [blue, mark=none, samples=301, name path=f,domain=-4:4] { exp(-x^2) };
+\addplot [blue, mark=none, samples=301, name path=f,domain=-4:4] { bell(\x) };
 
 %% Just a path over the x axis
 \path[name path=xaxis] (axis cs:-4,0) -- (axis cs:4,0);
@@ -23,8 +25,11 @@
 \addplot [thick, fill=red, fill opacity=0.25]
               fill between[of=f and xaxis, soft clip={domain=-1:1}];
         
-%% Draw the 1 sigma from-to line
-\draw[red,latex-latex] (axis cs:-1,0.1) -- (axis cs:1,0.1) node[midway, above] {68.26\,\%};
+%% Show the 1 sigma area
+\draw[latex-,red] (axis cs:0.0,0.4) -- (axis cs:1.1,0.75) node[right] {Area is 68.26\,\% of total};
+
+% Show function
+\draw[latex-,blue] (axis cs:-0.7,{bell(-0.7)}) -- (axis cs:-2,0.8) node[left] {$\mathrm{e}^{-x^2}$};
 
 \end{axis}
 
